@@ -1,5 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using RestAPInBlog.Model.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<nBlogDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("nBlogContext")
+            ?? throw new InvalidOperationException("Connection string 'nBlogContext' not found.")));
 // Add services to the container.
 
 builder.Services.AddControllers();
