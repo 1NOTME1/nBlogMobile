@@ -1,7 +1,6 @@
-﻿using AppMobilenBlog.ViewModels;
-using AppMobilenBlog.Views;
+﻿using AppMobilenBlog.Views;
+using AppMobilenBlog.Views.UserView;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace AppMobilenBlog
@@ -11,13 +10,13 @@ namespace AppMobilenBlog
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(PostDetailPage), typeof(PostDetailPage));
+            Routing.RegisterRoute(nameof(NewPostPage), typeof(NewPostPage));
+            Routing.RegisterRoute(nameof(UserDetailPage), typeof(UserDetailPage));
+            Routing.RegisterRoute(nameof(NewUserPage), typeof(NewUserPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("//LoginPage");
-        }
+            => await Current.GoToAsync("//LoginPage");
     }
 }

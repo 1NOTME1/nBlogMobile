@@ -2,6 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:AppMobilenBlog.Views"
+       xmlns:localUser="clr-namespace:AppMobilenBlog.Views.UserView"
        Title="AppMobilenBlog"
        x:Class="AppMobilenBlog.AppShell">
 
@@ -28,7 +29,7 @@
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
 
             <!--
-            Default Styles for all Flyout Items
+            Default Styles for all Flyout Posts
             https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
             -->
             <Style Class="FlyoutItemLabelStyle" TargetType="Label">
@@ -75,14 +76,17 @@
 
     <!-- 
         When the Flyout is visible this defines the content to display in the flyout.
-        FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
+        FlyoutDisplayOptions="AsMultiplePosts" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem Title="About" Icon="icon_about.png">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
-        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Route="PostsPage" ContentTemplate="{DataTemplate local:PostsPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Browse Users" Icon="icon_feed.png">
+        <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate localUser:UserPage}" />
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
@@ -111,7 +115,7 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
-    // ItemTemplate is for ShellItems as displayed in a Flyout
+    // ItemTemplate is for ShellPosts as displayed in a Flyout
     // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-flyoutitem-appearance
     <Shell.ItemTemplate>
         <DataTemplate>
@@ -121,7 +125,7 @@
         </DataTemplate>
     </Shell.ItemTemplate>
 
-    // MenuItemTemplate is for MenuItems as displayed in a Flyout
+    // MenuItemTemplate is for MenuPosts as displayed in a Flyout
     // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-menuitem-appearance
     <Shell.MenuItemTemplate>
         <DataTemplate>
