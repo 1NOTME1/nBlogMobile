@@ -4,12 +4,12 @@ using Xamarin.Forms;
 
 namespace AppMobilenBlog.Views
 {
-    public partial class ItemDetailPage : ContentPage
+    public partial class PostDetailPage : ContentPage
     {
-        public ItemDetailPage()
+        public PostDetailPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = new PostDetailViewModel();
         }
     }
 }

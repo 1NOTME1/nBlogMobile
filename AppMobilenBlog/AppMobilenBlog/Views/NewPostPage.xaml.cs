@@ -8,14 +8,14 @@ using Xamarin.Forms.Xaml;
 
 namespace AppMobilenBlog.Views
 {
-    public partial class NewItemPage : ContentPage
+    public partial class NewPostPage : ContentPage
     {
-        public Item Item { get; set; }
+        public Post Post { get; set; }
 
-        public NewItemPage()
+        public NewPostPage()
         {
             InitializeComponent();
-            BindingContext = new NewItemViewModel();
+            BindingContext = new NewPostViewModel();
         }
     }
 }
