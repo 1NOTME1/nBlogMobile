@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:AppMobilenBlog.ViewModels.UserViewModel"
+             xmlns:model="clr-namespace:AppMobilenBlog.Models"
+             x:Class="AppMobilenBlog.Views.UserView.UserPage"
+             x:Name="BrowseUserPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+    </ContentPage.ToolbarItems>
+    <RefreshView x:DataType="local:UserViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="UsersListView"
+            ItemsSource="{Binding Items}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" x:DataType="model:User">
+                        <Label Text="{Binding Username}" 
+                        Style="{DynamicResource ListItemTextStyle}" 
+                        FontSize="16" />
+                        <Label Text="{Binding Email}" 
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontSize="13" />
+                        <Label Text="{Binding RegistrationDate, StringFormat='{0:MM/dd/yyyy}'}" 
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontSize="13" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                            NumberOfTapsRequired="1"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:UserViewModel}}, Path=ItemTapped}"		
+                            CommandParameter="{Binding .}">
+                            </TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

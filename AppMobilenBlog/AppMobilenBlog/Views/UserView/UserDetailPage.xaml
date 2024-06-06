@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppMobilenBlog.Views.UserView.UserDetailPage"
+             Title="{Binding Title}">
+    <StackLayout Spacing="20" Padding="15">
+        <Label Text="Username:" FontSize="Medium" />
+        <Label Text="{Binding Username}" FontSize="Small"/>
+        <Label Text="Email:" FontSize="Medium" />
+        <Label Text="{Binding Email}" FontSize="Small"/>
+        <Label Text="Role ID:" FontSize="Medium" />
+        <Label Text="{Binding RoleId}" FontSize="Small"/>
+        <Label Text="Registration Date:" FontSize="Medium" />
+        <Label Text="{Binding RegistrationDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="Small"/>
+    </StackLayout>
+</ContentPage>
