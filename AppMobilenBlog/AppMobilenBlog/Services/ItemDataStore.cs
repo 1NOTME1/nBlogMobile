@@ -1,6 +1,5 @@
 ﻿using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.Services.Abstract;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ namespace AppMobilenBlog.Services
 {
     public class ItemDataStore : ADataStore, IDataStore<Post>
     {
-        readonly List<Post> items;
+        List<Post> items;
 
         public ItemDataStore()
             : base() => items = nBlogService.PostAllAsync().GetAwaiter().GetResult().ToList();
@@ -45,6 +44,7 @@ namespace AppMobilenBlog.Services
 
         public async Task<IEnumerable<Post>> GetItemsAsync(bool forceRefresh = false)
         {
+            items = (await nBlogService.PostAllAsync()).ToList();
             return await Task.FromResult(items);
         }
     }

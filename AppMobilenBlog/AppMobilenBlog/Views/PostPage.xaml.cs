@@ -1,14 +1,5 @@
-﻿using AppMobilenBlog.Models;
-using AppMobilenBlog.ViewModels;
-using AppMobilenBlog.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppMobilenBlog.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppMobilenBlog.Views
 {
