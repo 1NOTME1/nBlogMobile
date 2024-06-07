@@ -73,7 +73,7 @@ namespace RestAPInBlog.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/Post
@@ -88,7 +88,7 @@ namespace RestAPInBlog.Controllers
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPost", new { id = post.PostId }, post);
+            return Ok(post);
         }
 
         // DELETE: api/Post/5
@@ -108,7 +108,7 @@ namespace RestAPInBlog.Controllers
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool PostExists(int id)
