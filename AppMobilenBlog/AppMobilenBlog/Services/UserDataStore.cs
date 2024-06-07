@@ -3,6 +3,7 @@ using AppMobilenBlog.Services.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AppMobilenBlog.Services
 {
@@ -19,9 +20,29 @@ namespace AppMobilenBlog.Services
             };
         }
 
+        public override Task<bool> AddItemToService(User item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<bool> DeleteItemFromService(User item)
+        {
+            throw new NotImplementedException();
+        }
+
         public override User Find(User item)
             => items.Where((User arg) => arg.UserId == item.UserId).FirstOrDefault();
         public override User Find(int id)
             => items.Where((User arg) => arg.UserId == id).FirstOrDefault();
+
+        public override Task Refresh()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<bool> UpdateItemInService(User item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

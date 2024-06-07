@@ -1,51 +1,32 @@
-﻿using AppMobilenBlog.ServiceReference;
+﻿using AppMobilenBlog.Helpers;
+using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.Services.Abstract;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AppMobilenBlog.Services
 {
-    public class ItemDataStore : ADataStore, IDataStore<Post>
+    public class ItemDataStore : AListDataStore<Post>
     {
-        List<Post> items;
-
         public ItemDataStore()
             : base() => items = nBlogService.PostAllAsync().GetAwaiter().GetResult().ToList();
 
-        public async Task<bool> AddItemAsync(Post post)
-        {
-            items.Add(post);
+        public override async Task Refresh()
+            => items = (await nBlogService.PostAllAsync()).ToList();
 
-            return await Task.FromResult(true);
-        }
+        public override async Task<bool> DeleteItemFromService(Post item)
+            => await nBlogService.PostDELETEAsync(item.PostId).HandleRequest();
 
-        public async Task<bool> UpdateItemAsync(Post post)
-        {
-            var oldPost = items.Where((Post arg) => arg.PostId == post.PostId).FirstOrDefault();
-            items.Remove(oldPost);
-            items.Add(post);
+        public override async Task<bool> UpdateItemInService(Post item)
+        => await nBlogService.PostPUTAsync(item.PostId, item).HandleRequest();
 
-            return await Task.FromResult(true);
-        }
+        public override async Task<bool> AddItemToService(Post item)
+        => await nBlogService.PostPOSTAsync(item).HandleRequest();
 
-        public async Task<bool> DeleteItemAsync(int id)
-        {
-            var oldPost = items.Where((Post arg) => arg.PostId == id).FirstOrDefault();
-            items.Remove(oldPost);
+        public override Post Find(Post item)
+        => items.Where((Post arg) => arg.PostId == item.PostId).FirstOrDefault();
 
-            return await Task.FromResult(true);
-        }
-
-        public async Task<Post> GetItemAsync(int id)
-        {
-            return await Task.FromResult(items.FirstOrDefault(s => s.PostId == id));
-        }
-
-        public async Task<IEnumerable<Post>> GetItemsAsync(bool forceRefresh = false)
-        {
-            items = (await nBlogService.PostAllAsync()).ToList();
-            return await Task.FromResult(items);
-        }
+        public override Post Find(int id)
+        => items.FirstOrDefault(s => s.PostId == id);
     }
 }
