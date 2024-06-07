@@ -1,13 +1,14 @@
-﻿using AppMobilenBlog.Models;
+﻿using AppMobilenBlog.Helpers;
+using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.Services;
+using AppMobilenBlog.ViewModels.Abstractions;
 using System;
 using Xamarin.Forms;
 
 namespace AppMobilenBlog.ViewModels.UserViewModel
 {
-    public class NewUserViewModel : BaseViewModel
+    public class NewUserViewModel : ANewItemViewModel<User>
     {
-        public IDataStore<User> DataStore => DependencyService.Get<IDataStore<User>>();
         #region Fields
         private int userId;
         private string username;
@@ -16,19 +17,8 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         private DateTime registrationDate;
         private int roleId;
         #endregion Fields
-
-        public NewUserViewModel()
-        {
-            SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
-            this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
-        }
-
-        private bool ValidateSave() => userId > 0
-                && !string.IsNullOrWhiteSpace(username)
-                && !string.IsNullOrWhiteSpace(email)
-                && !string.IsNullOrWhiteSpace(passwordHash);
+        public NewUserViewModel() :
+            base() {}
 
         #region Properties
         public int UserId
@@ -61,28 +51,17 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             get => roleId;
             set => SetProperty(ref roleId, value);
         }
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
         #endregion
 
-        private async void OnCancel()
-        {
-            await Shell.Current.GoToAsync("..");
-        }
+        public override bool ValidateSave() => userId > 0
+                && !string.IsNullOrWhiteSpace(username)
+                && !string.IsNullOrWhiteSpace(email)
+                && !string.IsNullOrWhiteSpace(passwordHash);
 
-        private async void OnSave()
-        {
-            var newUser = new User()
-            {
-                UserId = UserId,
-                Username = Username,
-                Email = Email,
-                PasswordHash = PasswordHash,
-                RegistrationDate = DateTime.Now,
-                RoleId = RoleId
-            };
-            await DataStore.AddItemAsync(newUser);
-            await Shell.Current.GoToAsync("..");
-        }
+        public override User SetItem()
+            => new User().CopyProperties(this);
+
+
+
     }
 }

@@ -1,36 +1,36 @@
-﻿using AppMobilenBlog.Models;
-using AppMobilenBlog.Services;
+﻿using AppMobilenBlog.Helpers;
+using AppMobilenBlog.ServiceReference;
+using AppMobilenBlog.ViewModels.Abstractions;
+using AppMobilenBlog.Views.UserView;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace AppMobilenBlog.ViewModels.UserViewModel
 {
-    [QueryProperty(nameof(UserId), nameof(UserId))]
-    public class UserDetailsViewModel : BaseViewModel
+    public class UserDetailsViewModel : AItemDetailsViewModel<User>
     {
-        public IDataStore<User> DataStore => DependencyService.Get<IDataStore<User>>();
 
         #region Fields
         private int userId;
         private string username;
         private string email;
-        private DateTime registrationDate;
+        private DateTime? registrationDate;
         private int roleId;
         private string passwordHash;
         #endregion
-
+        #region Constructor
+        public UserDetailsViewModel()
+        : base("User Details") { }
+        #endregion
         #region Properties
         public int UserId
         {
             get => userId;
             set
             {
-                if (userId != value)
-                {
-                    userId = value;
-                    LoadUserId(value);
-                }
+                userId = value;
             }
         }
 
@@ -53,7 +53,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             set => SetProperty(ref passwordHash, value);
         }
 
-        public DateTime RegistrationDate
+        public DateTime? RegistrationDate
         {
             get => registrationDate;
             set => SetProperty(ref registrationDate, value);
@@ -64,25 +64,34 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             get => roleId;
             set => SetProperty(ref roleId, value);
         }
-        #endregion
 
-        public async void LoadUserId(int userId)
+
+        protected override Task GoToUpdatePage()
+            => Shell.Current.GoToAsync($"{nameof(UserUpdatePage)}?{nameof(UserUpdateViewModel.ItemId)}={ItemId}");
+
+
+
+        public override async Task LoadItem(int id)
         {
             try
             {
-                var user = await DataStore.GetItemAsync(userId);
-                if (user != null)
+                var item = await DataStore.GetItemAsync(id);
+                if (item != null)
                 {
-                    UserId = user.UserId;
-                    Username = user.Username;
-                    Email = user.Email;
-                    PasswordHash = user.PasswordHash;
-                    RegistrationDate = user.RegistrationDate;
-                    RoleId = user.RoleId;
+                    this.CopyProperties(item);
+                    UserId = item.UserId;
+
+                    // Handle nullable DateTimeOffset RegistrationDate
+                    if (item.RegistrationDate.HasValue)
+                    {
+                        RegistrationDate = item.RegistrationDate.Value.DateTime; // Explicitly convert to DateTime
+                    }
+
+                    Debug.WriteLine($"Loaded user with date: {RegistrationDate}");
                 }
                 else
                 {
-                    Debug.WriteLine("User not found");
+                    Debug.WriteLine("Failed to load user data, or user data is null.");
                 }
             }
             catch (Exception ex)
@@ -91,5 +100,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             }
         }
 
+
+        #endregion
     }
 }
