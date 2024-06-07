@@ -1,6 +1,5 @@
 ﻿using AppMobilenBlog.Helpers;
 using AppMobilenBlog.ServiceReference;
-using AppMobilenBlog.Services;
 using AppMobilenBlog.ViewModels.Abstractions;
 using System;
 using Xamarin.Forms;

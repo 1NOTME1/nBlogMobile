@@ -1,10 +1,6 @@
 ﻿using AppMobilenBlog.ServiceReference;
-using AppMobilenBlog.Services;
 using AppMobilenBlog.ViewModels.Abstractions;
 using AppMobilenBlog.Views.UserView;
-using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
