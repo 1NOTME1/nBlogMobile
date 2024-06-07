@@ -1,4 +1,5 @@
-﻿using AppMobilenBlog.Services;
+﻿using AppMobilenBlog.ServiceReference;
+using AppMobilenBlog.Services;
 using AppMobilenBlog.Views;
 using System;
 using Xamarin.Forms;
@@ -13,7 +14,10 @@ namespace AppMobilenBlog
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<ItemDataStore>();
+            DependencyService.Register<UserDataStore>();
+            DependencyService.Register<IDataStore<User>, UserDataStore>();
+
             MainPage = new AppShell();
         }
 
