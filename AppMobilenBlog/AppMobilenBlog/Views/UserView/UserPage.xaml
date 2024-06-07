@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:AppMobilenBlog.ViewModels.UserViewModel"
-             xmlns:model="clr-namespace:AppMobilenBlog.Models"
+             xmlns:model="clr-namespace:AppMobilenBlog.ServiceReference"
              x:Class="AppMobilenBlog.Views.UserView.UserPage"
              x:Name="BrowseUserPage">
     <ContentPage.ToolbarItems>
