@@ -11,13 +11,13 @@
         <ToolbarItem Text="Add" Command="{Binding AddPostCommand}" />
     </ContentPage.ToolbarItems>
 
-    <RefreshView x:DataType="local:PostsViewModel" Command="{Binding LoadPostsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <RefreshView x:DataType="local:PostsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="PostsListView"
-                        ItemsSource="{Binding Posts}"
+                        ItemsSource="{Binding Items}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:Post">
+                    <StackLayout Padding="10" x:DataType="model:PostForView">
                         <Label Text="{Binding Title}" 
                                LineBreakMode="NoWrap" 
                                Style="{DynamicResource ListItemTextStyle}" 
