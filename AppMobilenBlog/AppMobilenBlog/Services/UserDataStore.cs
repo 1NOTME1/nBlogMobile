@@ -1,48 +1,28 @@
-﻿using AppMobilenBlog.ServiceReference;
+﻿using AppMobilenBlog.Helpers;
+using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.Services.Abstract;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AppMobilenBlog.Services
 {
-    public class UserDataStore : AListDataStore<User>
+    public class UserDataStore : AListDataStore<UserForView>
     {
-
         public UserDataStore()
-        {
-            items = new List<User>()
-            {
-                new User { UserId = 1, Username = "User1", Email = "user1@example.com", PasswordHash = "hash1", RegistrationDate = DateTime.Now, RoleId = 1 },
-                new User { UserId = 2, Username = "User2", Email = "user2@example.com", PasswordHash = "hash2", RegistrationDate = DateTime.Now.AddDays(-1), RoleId = 2 },
-                new User { UserId = 3, Username = "User3", Email = "user3@example.com", PasswordHash = "hash3", RegistrationDate = DateTime.Now.AddDays(-2), RoleId = 3 }
-            };
-        }
+           : base()
+           => items = nBlogService.UserAllAsync().GetAwaiter().GetResult().ToList();
+        public override UserForView Find(UserForView item)
+            => items.Where((UserForView arg) => arg.UserId == item.UserId).FirstOrDefault();
+        public override UserForView Find(int id)
+            => items.FirstOrDefault(s => s.UserId == id);
+        public override async Task Refresh()
+            => items = (await nBlogService.UserAllAsync()).ToList();
+        public override async Task<bool> DeleteItemFromService(UserForView item)
+            => await nBlogService.UserDELETEAsync(item.UserId).HandleRequest();
+        public override async Task<bool> UpdateItemInService(UserForView item)
+        => await nBlogService.UserPUTAsync(item.UserId, item).HandleRequest();
+        public override async Task<bool> AddItemToService(UserForView item)
+        => await nBlogService.UserPOSTAsync(item).HandleRequest();
 
-        public override Task<bool> AddItemToService(User item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<bool> DeleteItemFromService(User item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override User Find(User item)
-            => items.Where((User arg) => arg.UserId == item.UserId).FirstOrDefault();
-        public override User Find(int id)
-            => items.Where((User arg) => arg.UserId == id).FirstOrDefault();
-
-        public override Task Refresh()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<bool> UpdateItemInService(User item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
