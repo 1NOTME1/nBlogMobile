@@ -8,55 +8,55 @@ namespace RestAPInBlog.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly nBlogDbContext _context;
 
-        public PostController(nBlogDbContext context)
+        public UserController(nBlogDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Post
+        // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostForView>>> GetPosts()
+        public async Task<ActionResult<IEnumerable<UserForView>>> GetUsers()
         {
-          if (_context.Posts == null)
+          if (_context.Users == null)
           {
               return NotFound();
           }
-            return (await _context.Posts.ToListAsync()).Select(po => (PostForView)po).ToList();
+            return (await _context.Users.ToListAsync()).Select(cl => (UserForView)cl).ToList();
         }
 
-        // GET: api/Post/5
+        // GET: api/User/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostForView>> GetPost(int id)
+        public async Task<ActionResult<UserForView>> GetUser(int id)
         {
-          if (_context.Posts == null)
+          if (_context.Users == null)
           {
               return NotFound();
           }
-            var post = await _context.Posts.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
 
-            if (post == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return (PostForView)post;
+            return (UserForView)user;
         }
 
-        // PUT: api/Post/5
+        // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPost(int id, PostForView post)
+        public async Task<IActionResult> PutUser(int id, UserForView user)
         {
-            if (id != post.PostId)
+            if (id != user.UserId)
             {
                 return BadRequest();
             }
-            var podb = (PostForView)post;
-            _context.Entry(podb).State = EntityState.Modified;
+            var cldb = (User)user;
+            _context.Entry(cldb).State = EntityState.Modified;
 
             try
             {
@@ -64,7 +64,7 @@ namespace RestAPInBlog.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PostExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -77,44 +77,44 @@ namespace RestAPInBlog.Controllers
             return Ok();
         }
 
-        // POST: api/Post
+        // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PostForView>> PostPost(PostForView post)
+        public async Task<ActionResult<UserForView>> PostUser(UserForView user)
         {
-          if (_context.Posts == null)
+          if (_context.Users == null)
           {
-              return Problem("Entity set 'nBlogDbContext.Posts'  is null.");
+              return Problem("Entity set 'nBlogDbContext.Users'  is null.");
           }
-            _context.Posts.Add(post);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(post);
+            return Ok(user);
         }
 
-        // DELETE: api/Post/5
+        // DELETE: api/User/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePost(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            if (_context.Posts == null)
+            if (_context.Users == null)
             {
                 return NotFound();
             }
-            var post = await _context.Posts.FindAsync(id);
-            if (post == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Posts.Remove(post);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
             return Ok();
         }
 
-        private bool PostExists(int id)
+        private bool UserExists(int id)
         {
-            return (_context.Posts?.Any(e => e.PostId == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
     }
 }
