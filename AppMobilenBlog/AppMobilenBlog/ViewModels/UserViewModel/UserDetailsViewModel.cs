@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace AppMobilenBlog.ViewModels.UserViewModel
 {
-    public class UserDetailsViewModel : AItemDetailsViewModel<User>
+    public class UserDetailsViewModel : AItemDetailsViewModel<UserForView>
     {
 
         #region Fields
@@ -79,7 +79,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 if (item != null)
                 {
                     this.CopyProperties(item);
-                    UserId = item.UserId;
+                    UserId = id;
 
                     // Handle nullable DateTimeOffset RegistrationDate
                     if (item.RegistrationDate.HasValue)

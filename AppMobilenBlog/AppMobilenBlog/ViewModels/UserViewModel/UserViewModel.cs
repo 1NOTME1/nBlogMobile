@@ -9,7 +9,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
     /// <summary>
     /// Implementation of IDataStore for Users
     /// </summary>
-    public class UserViewModel : AListViewModel<User>
+    public class UserViewModel : AListViewModel<UserForView>
     {
 
         public UserViewModel()
@@ -18,7 +18,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         public override Task GoToAddPage()
         =>  Shell.Current.GoToAsync(nameof(NewUserPage));
 
-        public override Task GoToDetailsPage(User item)
+        public override Task GoToDetailsPage(UserForView item)
         => Shell.Current.GoToAsync($"{nameof(UserDetailPage)}?{nameof(UserDetailsViewModel.ItemId)}={item.UserId}");
     }
 }

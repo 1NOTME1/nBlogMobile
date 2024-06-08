@@ -6,18 +6,17 @@ using Xamarin.Forms;
 
 namespace AppMobilenBlog.ViewModels.UserViewModel
 {
-    public class NewUserViewModel : ANewItemViewModel<User>
+    public class NewUserViewModel : ANewItemViewModel<UserForView>
     {
         #region Fields
         private int userId;
         private string username;
         private string email;
-        private string passwordHash;
+        private string password;
         private DateTime registrationDate;
         private int roleId;
         #endregion Fields
-        public NewUserViewModel() :
-            base() {}
+        public NewUserViewModel() : base("Add New User") { }
 
         #region Properties
         public int UserId
@@ -35,11 +34,13 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             get => email;
             set => SetProperty(ref email, value);
         }
-        public string PasswordHash
+
+        public string Password
         {
-            get => passwordHash;
-            set => SetProperty(ref passwordHash, value);
+            get => password;
+            set => SetProperty(ref password, value);
         }
+
         public DateTime RegistrationDate
         {
             get => registrationDate;
@@ -55,12 +56,23 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         public override bool ValidateSave() => userId > 0
                 && !string.IsNullOrWhiteSpace(username)
                 && !string.IsNullOrWhiteSpace(email)
-                && !string.IsNullOrWhiteSpace(passwordHash);
+                && !string.IsNullOrWhiteSpace(password);
 
-        public override User SetItem()
-            => new User().CopyProperties(this);
-
-
-
+        public override UserForView SetItem()
+        {
+            return new UserForView()
+            {
+                UserId = this.UserId,
+                Username = this.Username,
+                Email = this.Email,
+                RegistrationDate = this.RegistrationDate,
+                RoleId = this.RoleId,
+                RoleName = "Default Role",
+                PostCount = 0,
+                CommentCount = 0,
+                LikeCount = 0,
+                Password = this.Password
+            };
+        }
     }
 }

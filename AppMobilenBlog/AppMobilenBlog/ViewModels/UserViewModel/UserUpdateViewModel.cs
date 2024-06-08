@@ -7,7 +7,7 @@ using AppMobilenBlog.ServiceReference;
 
 namespace AppMobilenBlog.ViewModels.UserViewModel
 {
-    public class UserUpdateViewModel : AItemUpdateViewModel<User>
+    public class UserUpdateViewModel : AItemUpdateViewModel<UserForView>
     {
         #region Fields
         private int userId;
@@ -91,7 +91,19 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         public override bool ValidateSave()
             => UserId > 0 && !string.IsNullOrWhiteSpace(Username);
 
-        public override User SetItem()
-            => new User().CopyProperties(this);
+        public override UserForView SetItem()
+        {
+            var userForView = new UserForView
+            {
+                UserId = this.UserId,
+                Username = this.Username,
+                Email = this.Email,
+                RegistrationDate = this.RegistrationDate,
+                RoleId = this.RoleId
+                // Nie przekazuj PasswordHash
+            };
+            return userForView;
+        }
+
     }
 }
