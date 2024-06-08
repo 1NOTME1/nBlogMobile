@@ -1,30 +1,23 @@
-﻿using AppMobilenBlog.ServiceReference;
+﻿using AppMobilenBlog.Helpers;
+using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.Services;
+using AppMobilenBlog.ViewModels.Abstractions;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace AppMobilenBlog.ViewModels
 {
-    [QueryProperty(nameof(PostId), nameof(PostId))]
-    public class PostDetailViewModel : BaseViewModel
+    [QueryProperty(nameof(ItemId), nameof(ItemId))]
+    public class PostDetailViewModel : AItemDetailsViewModel<PostForView>
     {
-        public IDataStore<Post> DataStore => DependencyService.Get<IDataStore<Post>>();
-
-        private int postId;
+        #region Fileds
         private string title;
         private string content;
 
-        public int PostId
-        {
-            get => postId;
-            set
-            {
-                postId = value;
-                LoadPostId(value);
-            }
-        }
 
+        public int Id { get; set; }
         public int UserId { get; set; }
         public string Title
         {
@@ -39,23 +32,32 @@ namespace AppMobilenBlog.ViewModels
         }
 
         public DateTime? PublicationDate { get; set; }
-
-        public async void LoadPostId(int postId)
+        #endregion
+        #region Constructor
+        public PostDetailViewModel() 
+            :base("Post details")
+        {
+        }
+        #endregion
+        #region Methods
+        public override async Task LoadItem(int id)
         {
             try
             {
-                var post = await DataStore.GetItemAsync(postId);
-                PostId = post.PostId;
-                UserId = post.UserId.Value;
-                Title = post.Title;
-                Content = post.Content;
-                PublicationDate = post.PublicationDate.HasValue ? post.PublicationDate.Value.LocalDateTime : (DateTime?)null;
-
+                var item = (await DataStore.GetItemAsync(id));
+                this.CopyProperties(item);
+                Id = item.PostId;
             }
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Post");
             }
         }
+
+        protected override Task GoToUpdatePage()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
