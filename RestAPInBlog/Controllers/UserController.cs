@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using RestAPInBlog.ForView;
 using RestAPInBlog.Model;
 using RestAPInBlog.Model.Context;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RestAPInBlog.Controllers
 {
@@ -21,10 +23,10 @@ namespace RestAPInBlog.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserForView>>> GetUsers()
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             return (await _context.Users.ToListAsync()).Select(cl => (UserForView)cl).ToList();
         }
 
@@ -32,10 +34,10 @@ namespace RestAPInBlog.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserForView>> GetUser(int id)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             var user = await _context.Users.FindAsync(id);
 
             if (user == null)
@@ -47,16 +49,31 @@ namespace RestAPInBlog.Controllers
         }
 
         // PUT: api/User/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, UserForView user)
+        public async Task<IActionResult> PutUser(int id, UserForView userView)
         {
-            if (id != user.UserId)
+            if (id != userView.UserId)
             {
                 return BadRequest();
             }
-            var cldb = (User)user;
-            _context.Entry(cldb).State = EntityState.Modified;
+
+            var existingUser = await _context.Users.FindAsync(id);
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            existingUser.Username = userView.Username;
+            existingUser.Email = userView.Email;
+            existingUser.RegistrationDate = userView.RegistrationDate ?? existingUser.RegistrationDate;
+            existingUser.RoleId = userView.RoleId;
+
+            if (!string.IsNullOrWhiteSpace(userView.Password))
+            {
+                existingUser.PasswordHash = HashPassword(userView.Password);
+            }
+
+            _context.Entry(existingUser).State = EntityState.Modified;
 
             try
             {
@@ -78,18 +95,44 @@ namespace RestAPInBlog.Controllers
         }
 
         // POST: api/User
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UserForView>> PostUser(UserForView user)
+        public async Task<ActionResult<UserForView>> PostUser(UserForView userView)
         {
-          if (_context.Users == null)
-          {
-              return Problem("Entity set 'nBlogDbContext.Users'  is null.");
-          }
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'nBlogDbContext.Users' is null.");
+            }
+
+            if (string.IsNullOrWhiteSpace(userView.Password))
+            {
+                return BadRequest("Password cannot be empty.");
+            }
+
+            // Przykładowe hashowanie hasła przed zapisem
+            var hashedPassword = HashPassword(userView.Password);
+
+            var user = new User
+            {
+                Username = userView.Username,
+                Email = userView.Email,
+                PasswordHash = hashedPassword,
+                RegistrationDate = userView.RegistrationDate ?? DateTime.UtcNow,
+                RoleId = userView.RoleId
+            };
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(user);
+            return CreatedAtAction("GetUser", new { id = user.UserId }, userView);
+        }
+
+        private string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLowerInvariant();
+            }
         }
 
         // DELETE: api/User/5

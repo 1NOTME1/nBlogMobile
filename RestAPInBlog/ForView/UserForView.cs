@@ -1,9 +1,5 @@
-﻿using RestAPInBlog.Helpers;
-using RestAPInBlog.Model;
+﻿using RestAPInBlog.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace RestAPInBlog.ForView
 {
@@ -14,15 +10,45 @@ namespace RestAPInBlog.ForView
         public string? Email { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public int RoleId { get; set; }
-        public string? RoleName { get; set; } // Nazwa roli użytkownika
-        public int PostCount { get; set; } // Liczba postów użytkownika
-        public int CommentCount { get; set; } // Liczba komentarzy użytkownika
-        public int LikeCount { get; set; } // Liczba polubień użytkownika
+        public string? RoleName { get; set; }
+        public int PostCount { get; set; }
+        public int CommentCount { get; set; }
+        public int LikeCount { get; set; }
+        public string? Password { get; set; }
 
-        public static implicit operator User(UserForView cli)
-             => new User().CopyProperties(cli);
+        public static implicit operator User(UserForView view)
+        {
+            if (view == null) return null;
+            var user = new User
+            {
+                UserId = view.UserId,
+                Username = view.Username,
+                Email = view.Email,
+                RegistrationDate = view.RegistrationDate,
+                RoleId = view.RoleId,
+            };
+            if (!string.IsNullOrWhiteSpace(view.Password))
+            {
+                user.PasswordHash = view.Password;  // Możesz chcieć tutaj użyć metody hashującej
+            }
+            return user;
+        }
 
-        public static implicit operator UserForView(User source)
-            => new UserForView().CopyProperties(source);
+        public static implicit operator UserForView(User user)
+        {
+            if (user == null) return null;
+            return new UserForView
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+                Email = user.Email,
+                RegistrationDate = user.RegistrationDate,
+                RoleId = user.RoleId,
+                RoleName = user.Role?.Name,
+                PostCount = user.Posts?.Count ?? 0,
+                CommentCount = user.Comments?.Count ?? 0,
+                LikeCount = user.Likes?.Count ?? 0
+            };
+        }
     }
 }
