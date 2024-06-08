@@ -23,6 +23,7 @@ namespace AppMobilenBlog.Helpers
                 .ForEach(property => FindAndReplaceProperty(targetObject, sourceObject, property));
             return targetObject;
         }
+
         private static void FindAndReplaceProperty<T, T2>(T targetObject, T2 sourceObject, PropertyInfo property)
         {
             if (sourceObject.GetTypeProperties().Any(prop => CheckIfPropertyExistInSource(prop, property)))
