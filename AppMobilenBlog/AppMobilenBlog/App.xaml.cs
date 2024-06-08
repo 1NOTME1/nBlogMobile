@@ -16,7 +16,7 @@ namespace AppMobilenBlog
 
             DependencyService.Register<ItemDataStore>();
             DependencyService.Register<UserDataStore>();
-            DependencyService.Register<IDataStore<User>, UserDataStore>();
+            DependencyService.Register<IDataStore<UserForView>, UserDataStore>();
 
             MainPage = new AppShell();
         }
