@@ -15,7 +15,7 @@
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:User">
+                    <StackLayout Padding="10" x:DataType="model:UserForView">
                         <Label Text="{Binding Username}" 
                         Style="{DynamicResource ListItemTextStyle}" 
                         FontSize="16" />

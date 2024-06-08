@@ -17,7 +17,6 @@
 
             <Label Text="Password Hash:" FontSize="Medium" />
             <Editor Text="{Binding PasswordHash, Mode=TwoWay}" FontSize="Medium"/>
-
             <Label Text="Registration Date:" FontSize="Medium" />
             <DatePicker Date="{Binding RegistrationDate, Mode=TwoWay}" FontSize="Medium"/>
 

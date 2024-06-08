@@ -8,7 +8,7 @@ namespace AppMobilenBlog.Views.UserView
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewUserPage : ContentPage
     {
-        public User User {  get; set; }
+        public UserForView Item {  get; set; }
 
         public NewUserPage()
         {
