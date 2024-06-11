@@ -49,14 +49,20 @@ namespace RestAPInBlog.Controllers
         // PUT: api/Post/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPost(int id, PostForView post)
+        public async Task<IActionResult> PutPost(int id, PostForView postView)
         {
-            if (id != post.PostId)
-            {
+            if (id != postView.PostId)
                 return BadRequest();
-            }
-            var podb = (PostForView)post;
-            _context.Entry(podb).State = EntityState.Modified;
+
+            var existingPost = await _context.Posts.FindAsync(id);
+            if (existingPost == null)
+                return NotFound();
+
+            existingPost.Title = postView.Title;
+            existingPost.Content = postView.Content;
+            existingPost.PublicationDate = postView.PublicationDate ?? existingPost.PublicationDate;
+
+            _context.Entry(existingPost).State = EntityState.Modified;
 
             try
             {
@@ -80,16 +86,26 @@ namespace RestAPInBlog.Controllers
         // POST: api/Post
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PostForView>> PostPost(PostForView post)
+        public async Task<ActionResult<PostForView>> PostPost(PostForView postView)
         {
           if (_context.Posts == null)
           {
               return Problem("Entity set 'nBlogDbContext.Posts'  is null.");
           }
+
+            var post = new Post
+            {
+                UserId = postView.UserId,  // Assuming that the userId is passed correctly and exists
+                Title = postView.Title,
+                Content = postView.Content,
+                PublicationDate = postView.PublicationDate ?? DateTime.UtcNow, // Set default to now if not provided
+                                                                               // Assume Category and Tags are handled separately or are not required at creation
+            };
+
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 
-            return Ok(post);
+            return CreatedAtAction("GetPost", new { id = post.PostId }, postView);
         }
 
         // DELETE: api/Post/5

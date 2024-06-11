@@ -53,15 +53,11 @@ namespace RestAPInBlog.Controllers
         public async Task<IActionResult> PutUser(int id, UserForView userView)
         {
             if (id != userView.UserId)
-            {
                 return BadRequest();
-            }
 
             var existingUser = await _context.Users.FindAsync(id);
             if (existingUser == null)
-            {
                 return NotFound();
-            }
 
             existingUser.Username = userView.Username;
             existingUser.Email = userView.Email;
@@ -69,9 +65,7 @@ namespace RestAPInBlog.Controllers
             existingUser.RoleId = userView.RoleId;
 
             if (!string.IsNullOrWhiteSpace(userView.Password))
-            {
                 existingUser.PasswordHash = HashPassword(userView.Password);
-            }
 
             _context.Entry(existingUser).State = EntityState.Modified;
 
