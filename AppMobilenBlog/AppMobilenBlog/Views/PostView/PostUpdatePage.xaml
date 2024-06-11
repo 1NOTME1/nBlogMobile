@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppMobilenBlog.Views.PostUpdatePage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="15">
+            <Label Text="Post ID:" FontSize="Medium" />
+            <Label Text="{Binding PostId, Mode=TwoWay}" FontSize="Medium"/>
+
+            <Label Text="Tytuł:" FontSize="Medium" />
+            <Editor Text="{Binding Title, Mode=TwoWay}" FontSize="Medium"/>
+
+            <Label Text="Treść:" FontSize="Medium" />
+            <Editor Text="{Binding Content, Mode=TwoWay}" HeightRequest="150" FontSize="Medium"/>
+
+            <Label Text="Data publikacji:" FontSize="Medium" />
+            <DatePicker Date="{Binding PublicationDate, Mode=TwoWay}" FontSize="Medium"/>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Button Text="Anuluj" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"/>
+                <Button Text="Zapisz" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
