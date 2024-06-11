@@ -31,7 +31,21 @@ namespace RestAPInBlog.ForView
             }.CopyProperties(source);
 
 
-        public static implicit operator Post(PostForView source)
-            => new PostForView().CopyProperties(source);
+        public static implicit operator Post(PostForView view)
+        {
+            if (view == null) return null;
+
+            var post = new Post
+            {
+                PostId = view.PostId,
+                UserId = view.UserId,
+                Title = view.Title,
+                Content = view.Content,
+                PublicationDate = view.PublicationDate
+            };
+
+           
+            return post;
+        }
     }
 }
