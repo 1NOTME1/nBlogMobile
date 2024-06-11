@@ -12,6 +12,7 @@ namespace AppMobilenBlog
             InitializeComponent();
             Routing.RegisterRoute(nameof(PostDetailPage), typeof(PostDetailPage));
             Routing.RegisterRoute(nameof(NewPostPage), typeof(NewPostPage));
+            Routing.RegisterRoute(nameof(PostUpdatePage), typeof(PostUpdatePage));
             Routing.RegisterRoute(nameof(UserUpdatePage), typeof(UserUpdatePage));
             Routing.RegisterRoute(nameof(UserDetailPage), typeof(UserDetailPage));
             Routing.RegisterRoute(nameof(NewUserPage), typeof(NewUserPage));
