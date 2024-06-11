@@ -71,7 +71,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 PostCount = 0,
                 CommentCount = 0,
                 LikeCount = 0,
-                Password = this.Password
+                //Password = this.Password
             };
         }
     }

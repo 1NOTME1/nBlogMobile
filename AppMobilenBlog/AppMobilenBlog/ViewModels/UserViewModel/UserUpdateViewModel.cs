@@ -56,34 +56,31 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         }
         #endregion
 
-       public override async Task LoadItem(int id)
-{
-    try
-    {
-        var item = await DataStore.GetItemAsync(id);
-        if (item != null)
+        public override async Task LoadItem(int id)
         {
-            this.CopyProperties(item);
-            UserId = item.UserId;
-
-            // Handle nullable DateTimeOffset RegistrationDate
-            if (item.RegistrationDate.HasValue)
+            try
             {
-                RegistrationDate = item.RegistrationDate.Value.DateTime; // Explicitly convert to DateTime
-            }
+                var item = await DataStore.GetItemAsync(id);
+                if (item != null)
+                {
+                    this.CopyProperties(item);
+                    UserId = item.UserId;
 
-            Debug.WriteLine($"Loaded user with date: {RegistrationDate}");
+                    if (item.RegistrationDate.HasValue)
+                        RegistrationDate = item.RegistrationDate.Value.DateTime;
+
+                    Debug.WriteLine($"Loaded user with date: {RegistrationDate}");
+                }
+                else
+                {
+                    Debug.WriteLine("Failed to load user data, or user data is null.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to Load User: {ex.Message}");
+            }
         }
-        else
-        {
-            Debug.WriteLine("Failed to load user data, or user data is null.");
-        }
-    }
-    catch (Exception ex)
-    {
-        Debug.WriteLine($"Failed to Load User: {ex.Message}");
-    }
-}
 
 
 
