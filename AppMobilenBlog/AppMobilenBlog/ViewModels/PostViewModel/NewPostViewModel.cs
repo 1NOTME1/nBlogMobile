@@ -2,7 +2,7 @@
 using AppMobilenBlog.ViewModels.Abstractions;
 using System;
 
-namespace AppMobilenBlog.ViewModels
+namespace AppMobilenBlog.ViewModels.PostViewModel
 {
     public class NewPostViewModel : ANewItemViewModel<PostForView>
     {
@@ -11,7 +11,7 @@ namespace AppMobilenBlog.ViewModels
         private string content;
 
         public NewPostViewModel()
-            :base("Add New Post")
+            : base("Add New Post")
         {
         }
 
@@ -27,8 +27,8 @@ namespace AppMobilenBlog.ViewModels
             set => SetProperty(ref content, value);
         }
 
-        public override bool ValidateSave() => !String.IsNullOrWhiteSpace(title)
-            && !String.IsNullOrWhiteSpace(content);
+        public override bool ValidateSave() => !string.IsNullOrWhiteSpace(title)
+            && !string.IsNullOrWhiteSpace(content);
 
         public override PostForView SetItem()
         => new PostForView()

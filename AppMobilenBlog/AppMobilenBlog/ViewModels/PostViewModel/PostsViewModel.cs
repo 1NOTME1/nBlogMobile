@@ -4,12 +4,12 @@ using AppMobilenBlog.Views;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace AppMobilenBlog.ViewModels
+namespace AppMobilenBlog.ViewModels.PostViewModel
 {
     public class PostsViewModel : AListViewModel<PostForView>
     {
         public PostsViewModel()
-            :base("Browse Posts")
+            : base("Browse Posts")
         {
         }
 
