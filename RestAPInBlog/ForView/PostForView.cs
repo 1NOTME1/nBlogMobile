@@ -1,9 +1,6 @@
-﻿using RestAPInBlog.Helpers;
+﻿using RestAPInBlog.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using RestAPInBlog.Model;
 
 namespace RestAPInBlog.ForView
 {
@@ -16,20 +13,26 @@ namespace RestAPInBlog.ForView
         public string Content { get; set; }
         public DateTime? PublicationDate { get; set; }
         public string CategoryData { get; set; }
-        public string TagData { get; set; }
+        public string TagData { get; set; } // Add TagData property
         public int CommentCount { get; set; }
         public int LikeCount { get; set; }
 
         public static implicit operator PostForView(Post source)
-            => new PostForView
+        {
+            return new PostForView
             {
+                PostId = source.PostId,
+                UserId = source.UserId,
                 UserName = source.User?.Username ?? string.Empty,
+                Title = source.Title,
+                Content = source.Content,
+                PublicationDate = source.PublicationDate,
                 CategoryData = string.Join(", ", source.Categories.Select(c => c.CategoryName)),
-                TagData = string.Join(", ", source.Tags.Select(t => t.TagName)),
-                CommentCount = source.Comments.Count,
-                LikeCount = source.Likes.Count
-            }.CopyProperties(source);
-
+                TagData = string.Join(" ", source.Tags.Select(t => "#" + t.TagName)),
+                CommentCount = source.Comments?.Count ?? 0,
+                LikeCount = source.Likes?.Count ?? 0
+            };
+        }
 
         public static implicit operator Post(PostForView view)
         {
@@ -44,7 +47,6 @@ namespace RestAPInBlog.ForView
                 PublicationDate = view.PublicationDate
             };
 
-           
             return post;
         }
     }

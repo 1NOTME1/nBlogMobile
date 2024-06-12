@@ -16,6 +16,7 @@ namespace RestAPInBlog.ForView
         public int LikeCount { get; set; }
         public string? Password { get; set; }
 
+
         public static implicit operator User(UserForView view)
         {
             if (view == null) return null;
@@ -26,10 +27,12 @@ namespace RestAPInBlog.ForView
                 Email = view.Email,
                 RegistrationDate = view.RegistrationDate,
                 RoleId = view.RoleId,
+                PasswordHash = view.Password
+                
             };
             if (!string.IsNullOrWhiteSpace(view.Password))
             {
-                user.PasswordHash = view.Password;  // Możesz chcieć tutaj użyć metody hashującej
+                user.PasswordHash = view.Password;
             }
             return user;
         }
@@ -47,7 +50,9 @@ namespace RestAPInBlog.ForView
                 RoleName = user.Role?.Name,
                 PostCount = user.Posts?.Count ?? 0,
                 CommentCount = user.Comments?.Count ?? 0,
-                LikeCount = user.Likes?.Count ?? 0
+                LikeCount = user.Likes?.Count ?? 0,
+                Password = user.PasswordHash
+                
             };
         }
     }
