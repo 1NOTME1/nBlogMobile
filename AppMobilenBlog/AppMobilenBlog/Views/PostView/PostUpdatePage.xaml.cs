@@ -1,4 +1,6 @@
-﻿using AppMobilenBlog.ViewModels.PostViewModel;
+﻿using AppMobilenBlog.ServiceReference;
+using AppMobilenBlog.Services;
+using AppMobilenBlog.ViewModels.PostViewModel;
 using AppMobilenBlog.ViewModels.UserViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,7 +13,8 @@ namespace AppMobilenBlog.Views
         public PostUpdatePage()
         {
             InitializeComponent();
-            BindingContext = new PostUpdateViewModel();
+            var dataStore = new PostDataStore();
+            BindingContext = new PostUpdateViewModel(dataStore);
         }
     }
 }

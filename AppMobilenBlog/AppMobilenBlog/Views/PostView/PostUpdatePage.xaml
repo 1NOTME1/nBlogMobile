@@ -18,6 +18,12 @@
             <Label Text="Data publikacji:" FontSize="Medium" />
             <DatePicker Date="{Binding PublicationDate, Mode=TwoWay}" FontSize="Medium"/>
 
+            <Label Text="Kategorie:" FontSize="Medium" />
+            <Editor Text="{Binding CategoryData, Mode=TwoWay}" FontSize="Medium" Placeholder="Wprowadź kategorie oddzielone przecinkami"/>
+
+            <Label Text="Tagi:" FontSize="Medium" />
+            <Editor Text="{Binding TagData, Mode=TwoWay}" FontSize="Medium" Placeholder="Wprowadź tagi z '#' oddzielone spacjami"/>
+
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <Button Text="Anuluj" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"/>
                 <Button Text="Zapisz" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"/>

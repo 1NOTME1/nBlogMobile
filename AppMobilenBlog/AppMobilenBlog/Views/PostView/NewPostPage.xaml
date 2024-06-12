@@ -1,22 +1,27 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppMobilenBlog.Views.NewPostPage"
+             x:Class="AppMobilenBlog.Views.PostView.NewPostPage"
              Shell.PresentationMode="ModalAnimated"
-             Title="New Item"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="true">
+             Title="New Post">
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+            <Label Text="Title" FontSize="Medium" />
+            <Entry Text="{Binding Title, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Content" FontSize="Medium" />
+            <Editor Text="{Binding Content, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" />
+            <Label Text="Tag Data" FontSize="Medium" />
+            <Entry Text="{Binding TagData, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="User Name" FontSize="Medium" />
+            <Entry Text="{Binding UserName, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Category Data" FontSize="Medium" />
+            <Entry Text="{Binding CategoryData, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Publication Date" FontSize="Medium" />
+            <DatePicker Date="{Binding PublicationDate, Mode=TwoWay}" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
-    
 </ContentPage>

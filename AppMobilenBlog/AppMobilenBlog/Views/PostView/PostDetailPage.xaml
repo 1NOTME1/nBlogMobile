@@ -12,11 +12,18 @@
         <Label Text="Publication Date:" FontSize="Medium" />
         <Label Text="{Binding PublicationDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="Small"/>
 
+        <!-- Nowe etykiety -->
+        <Label Text="User Name:" FontSize="Medium" />
+        <Label Text="{Binding UserName}" FontSize="Small"/>
+        <Label Text="Category Data:" FontSize="Medium" />
+        <Label Text="{Binding CategoryData}" FontSize="Small"/>
+        <Label Text="Tag Data:" FontSize="Medium" />
+        <Label Text="{Binding TagData}" FontSize="Small"/>
+
         <StackLayout Orientation="Horizontal">
             <Button Text="Anuluj" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
             <Button Text="Edytuj" Command="{Binding UpdateCommand}" HorizontalOptions="FillAndExpand"></Button>
             <Button Text="Usuń" Command="{Binding DeleteCommand}" HorizontalOptions="FillAndExpand"></Button>
         </StackLayout>
     </StackLayout>
-
 </ContentPage>

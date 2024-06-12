@@ -1,8 +1,9 @@
 ﻿using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.ViewModels.PostViewModel;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
-namespace AppMobilenBlog.Views
+namespace AppMobilenBlog.Views.PostView
 {
     public partial class NewPostPage : ContentPage
     {

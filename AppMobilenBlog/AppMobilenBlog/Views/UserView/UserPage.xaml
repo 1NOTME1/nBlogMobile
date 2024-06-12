@@ -7,7 +7,7 @@
              x:Class="AppMobilenBlog.Views.UserView.UserPage"
              x:Name="BrowseUserPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Add New Member" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
     <RefreshView x:DataType="local:UserViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="UsersListView"

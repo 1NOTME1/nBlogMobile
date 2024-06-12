@@ -13,7 +13,7 @@
             <Label Text="Email" FontSize="Medium" />
             <Editor Text="{Binding Email, Mode=TwoWay}" FontSize="Medium"/>
             <Label Text="Password" FontSize="Medium" />
-            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
+            <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="True" Placeholder="Password"/>
             <Label Text="Registration Date" FontSize="Medium" />
             <DatePicker Date="{Binding RegistrationDate, Mode=TwoWay}" FontSize="Medium"/>
             <Label Text="Role ID" FontSize="Medium" />

@@ -5,10 +5,10 @@
              Title="{Binding Title}"
              xmlns:local="clr-namespace:AppMobilenBlog.ViewModels.PostViewModel"  
              xmlns:model="clr-namespace:AppMobilenBlog.ServiceReference"  
-             x:Name="PostsPage">
+             x:Name="BrowsePostsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddPostCommand}" />
+        <ToolbarItem Text="Add New Post" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
 
     <RefreshView x:DataType="local:PostsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
@@ -17,27 +17,41 @@
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:PostForView">
-                        <Label Text="{Binding Title}" 
-                               LineBreakMode="NoWrap" 
-                               Style="{DynamicResource ListItemTextStyle}" 
-                               FontSize="16" />
-                        <Label Text="{Binding Content}" 
-                               LineBreakMode="NoWrap"
-                               Style="{DynamicResource ListItemDetailTextStyle}"
-                               FontSize="13" />
-                        <Label Text="{Binding PublicationDate, StringFormat='{0:dd/MM/yyyy}'}" 
-                               LineBreakMode="NoWrap"
-                               Style="{DynamicResource ListItemDetailTextStyle}"
-                               FontSize="12" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostsViewModel}}, Path=ItemTapped}"		
-                                CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                    <Frame Padding="10" Margin="5" BorderColor="{StaticResource PrimaryColor}" CornerRadius="10" HasShadow="True">
+                        <StackLayout Padding="10" x:DataType="model:PostForView">
+                            <Label Text="{Binding Title}" 
+                                   LineBreakMode="NoWrap" 
+                                   FontSize="16" 
+                                   TextColor="{StaticResource PrimaryColor}"
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding Content}" 
+                                   LineBreakMode="NoWrap"
+                                   FontSize="13" />
+                            <Label Text="{Binding PublicationDate, StringFormat='{0:dd/MM/yyyy}'}" 
+                                   LineBreakMode="NoWrap"
+                                   FontSize="12" 
+                                   TextColor="Gray"/>
+                            <!-- Kategorie -->
+                            <Label Text="Categories:" FontAttributes="Bold" FontSize="12" />
+                            <Label Text="{Binding CategoryData}" 
+                                   LineBreakMode="NoWrap"
+                                   FontSize="12" 
+                                   TextColor="{StaticResource SecondaryColor}"/>
+                            <!-- Tagi -->
+                            <Label Text="Tags:" FontAttributes="Bold" FontSize="12" />
+                            <Label Text="{Binding TagData}" 
+                                   LineBreakMode="NoWrap"
+                                   FontSize="12" 
+                                   TextColor="{StaticResource SecondaryColor}"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostsViewModel}}, Path=ItemTapped}"		
+                                    CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
