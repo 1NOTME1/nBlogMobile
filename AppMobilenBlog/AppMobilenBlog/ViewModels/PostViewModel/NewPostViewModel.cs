@@ -1,18 +1,31 @@
 ﻿using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.ViewModels.Abstractions;
 using System;
+using Xamarin.Essentials; // Dodaj referencję do Xamarin.Essentials
 
 namespace AppMobilenBlog.ViewModels.PostViewModel
 {
     public class NewPostViewModel : ANewItemViewModel<PostForView>
     {
-
         private string title;
         private string content;
+        private string tagData;
+        private string userName;
+        private string categoryData;
+        private DateTime publicationDate;
+        private int userId;
 
         public NewPostViewModel()
             : base("Add New Post")
         {
+            PublicationDate = DateTime.Now;
+            UserId = Preferences.Get("UserId", 0); // Pobranie UserId z preferencji
+        }
+
+        public int UserId
+        {
+            get => userId;
+            set => SetProperty(ref userId, value);
         }
 
         public string Title
@@ -27,17 +40,49 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             set => SetProperty(ref content, value);
         }
 
+        public string TagData
+        {
+            get => tagData;
+            set => SetProperty(ref tagData, value);
+        }
+
+        public string UserName
+        {
+            get => userName;
+            set => SetProperty(ref userName, value);
+        }
+
+        public string CategoryData
+        {
+            get => categoryData;
+            set => SetProperty(ref categoryData, value);
+        }
+
+        public DateTime PublicationDate
+        {
+            get => publicationDate;
+            set => SetProperty(ref publicationDate, value);
+        }
+
         public override bool ValidateSave() => !string.IsNullOrWhiteSpace(title)
-            && !string.IsNullOrWhiteSpace(content);
+            && !string.IsNullOrWhiteSpace(content)
+            && !string.IsNullOrWhiteSpace(tagData)
+            && !string.IsNullOrWhiteSpace(userName)
+            && !string.IsNullOrWhiteSpace(categoryData);
 
         public override PostForView SetItem()
-        => new PostForView()
         {
-            PostId = 0,
-            UserId = 0,
-            Title = title,
-            Content = content,
-            PublicationDate = DateTime.Now
-        };
+            return new PostForView()
+            {
+                PostId = 0,
+                UserId = userId,
+                Title = title,
+                Content = content,
+                TagData = tagData,
+                UserName = userName,
+                CategoryData = categoryData,
+                PublicationDate = publicationDate
+            };
+        }
     }
 }

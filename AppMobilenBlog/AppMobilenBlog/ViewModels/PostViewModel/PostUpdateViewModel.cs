@@ -2,8 +2,9 @@
 using System;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using AppMobilenBlog.Helpers;
 using AppMobilenBlog.ServiceReference;
+using AppMobilenBlog.Services;
+using AppMobilenBlog.Helpers;
 
 namespace AppMobilenBlog.ViewModels.PostViewModel
 {
@@ -19,6 +20,7 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private string tagData;
         private int commentCount;
         private int likeCount;
+        private IDataStore<PostForView> DataStore;
         #endregion Fields
 
         #region Properties
@@ -70,8 +72,9 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         #endregion
 
         #region Constructor
-        public PostUpdateViewModel() : base("Post Update")
+        public PostUpdateViewModel(IDataStore<PostForView> dataStore) : base("Post Update")
         {
+            DataStore = dataStore;
         }
         #endregion
 
@@ -125,6 +128,30 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 CommentCount = this.CommentCount,
                 LikeCount = this.LikeCount
             };
+        }
+
+        public async Task<bool> SaveItemAsync()
+        {
+            try
+            {
+                var post = SetItem();
+
+                if (post.PostId > 0)
+                {
+                    await DataStore.UpdateItemAsync(post);
+                }
+                else
+                {
+                    await DataStore.AddItemAsync(post);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to Save Post: {ex.Message}");
+                return false;
+            }
         }
     }
 }

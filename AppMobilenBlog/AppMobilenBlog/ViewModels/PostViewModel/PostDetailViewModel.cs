@@ -16,6 +16,9 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private string title;
         private string content;
         private DateTime? publicationDate;
+        private string userName;
+        private string categoryData;
+        private string tagData;
         #endregion
 
         #region Constructor
@@ -49,6 +52,24 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             get => publicationDate;
             set => SetProperty(ref publicationDate, value);
         }
+
+        public string UserName
+        {
+            get => userName;
+            set => SetProperty(ref userName, value);
+        }
+
+        public string CategoryData
+        {
+            get => categoryData;
+            set => SetProperty(ref categoryData, value);
+        }
+
+        public string TagData
+        {
+            get => tagData;
+            set => SetProperty(ref tagData, value);
+        }
         #endregion
 
         #region Methods
@@ -66,6 +87,10 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                     {
                         PublicationDate = item.PublicationDate.Value.DateTime; // Explicitly convert to DateTime
                     }
+
+                    UserName = item.UserName;
+                    CategoryData = item.CategoryData;
+                    TagData = item.TagData;
 
                     Debug.WriteLine($"Loaded post with date: {PublicationDate}");
                 }
