@@ -63,6 +63,7 @@ namespace RestAPInBlog.Controllers
             existingUser.Email = userView.Email;
             existingUser.RegistrationDate = userView.RegistrationDate ?? existingUser.RegistrationDate;
             existingUser.RoleId = userView.RoleId;
+            existingUser.PasswordHash = userView.Password;
 
             if (!string.IsNullOrWhiteSpace(userView.Password))
                 existingUser.PasswordHash = HashPassword(userView.Password);
