@@ -17,8 +17,11 @@ namespace AppMobilenBlog
             DependencyService.Register<ItemDataStore>();
             DependencyService.Register<UserDataStore>();
             DependencyService.Register<IDataStore<UserForView>, UserDataStore>();
+            DependencyService.Register<IDataStore<PostForView>, PostDataStore>();
+            DependencyService.Register<ILoginService, LoginService>();
 
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new Views.LoginPage());
+            //MainPage = new AppShell();
         }
 
         protected override void OnStart()
@@ -31,6 +34,11 @@ namespace AppMobilenBlog
 
         protected override void OnResume()
         {
+        }
+
+        public void SetMainPageAfterLogin()
+        {
+            MainPage = new AppShell();
         }
     }
 }
