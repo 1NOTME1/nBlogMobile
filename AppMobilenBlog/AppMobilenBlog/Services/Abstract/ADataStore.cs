@@ -9,6 +9,7 @@ namespace AppMobilenBlog.Services.Abstract
     public abstract class ADataStore
     {
         protected nBlogService nBlogService;
+        protected HttpClient HttpClient;
 
         public ADataStore()
         {
@@ -18,8 +19,8 @@ namespace AppMobilenBlog.Services.Abstract
             httpHandler.ServerCertificateCustomValidationCallback =
             (httpRequestMessage, cert, cetChain, policyErrors) => true;
 #endif   
-            var httpclient = new HttpClient(httpHandler);
-            nBlogService = new nBlogService("https://localhost:7056", httpclient);
+            HttpClient = new HttpClient(httpHandler);
+            nBlogService = new nBlogService("https://localhost:7056", HttpClient);
         }
     }
 }
