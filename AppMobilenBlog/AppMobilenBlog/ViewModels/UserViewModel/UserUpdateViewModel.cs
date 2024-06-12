@@ -48,6 +48,13 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             get => passwordHash;
             set => SetProperty(ref passwordHash, value);
         }
+
+        private string password;
+        public string Password
+        {
+            get => password;
+            set => SetProperty(ref password, value);
+        }
         #endregion
         #region Constructor
         public UserUpdateViewModel()
@@ -96,8 +103,10 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 Username = this.Username,
                 Email = this.Email,
                 RegistrationDate = this.RegistrationDate,
-                RoleId = this.RoleId
+                RoleId = this.RoleId,
+                Password = this.PasswordHash
                 // Nie przekazuj PasswordHash
+
             };
             return userForView;
         }

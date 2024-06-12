@@ -53,10 +53,10 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         }
         #endregion
 
-        public override bool ValidateSave() => userId > 0
-                && !string.IsNullOrWhiteSpace(username)
-                && !string.IsNullOrWhiteSpace(email)
-                && !string.IsNullOrWhiteSpace(password);
+        public override bool ValidateSave() => userId > 0 
+            && !string.IsNullOrWhiteSpace(username)
+            && !string.IsNullOrWhiteSpace(email)
+            && !string.IsNullOrWhiteSpace(password);
 
         public override UserForView SetItem()
         {
@@ -71,7 +71,8 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 PostCount = 0,
                 CommentCount = 0,
                 LikeCount = 0,
-                //Password = this.Password
+                Password = password
+                
             };
         }
     }
