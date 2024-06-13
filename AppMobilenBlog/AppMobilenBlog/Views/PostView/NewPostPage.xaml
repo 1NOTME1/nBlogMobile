@@ -3,25 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMobilenBlog.Views.PostView.NewPostPage"
              Shell.PresentationMode="ModalAnimated"
-             Title="New Post">
+             Title="New Post"
+             Style="{StaticResource PageStyle}">
     <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
-            <Label Text="Title" FontSize="Medium" />
-            <Entry Text="{Binding Title, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Content" FontSize="Medium" />
-            <Editor Text="{Binding Content, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" />
-            <Label Text="Tag Data" FontSize="Medium" />
-            <Entry Text="{Binding TagData, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="User Name" FontSize="Medium" />
-            <Entry Text="{Binding UserName, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Category Data" FontSize="Medium" />
-            <Entry Text="{Binding CategoryData, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Publication Date" FontSize="Medium" />
-            <DatePicker Date="{Binding PublicationDate, Mode=TwoWay}" />
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+        <ScrollView>
+            <StackLayout Spacing="10" Padding="20">
+                <Entry Text="{Binding Title, Mode=TwoWay}" Placeholder="Title" Style="{StaticResource EntryStyle}" />
+                <Editor Text="{Binding Content, Mode=TwoWay}" Placeholder="Content" AutoSize="TextChanges" FontSize="Medium" VerticalOptions="Start" HeightRequest="150" />
+                <Entry Text="{Binding TagData, Mode=TwoWay}" Placeholder="Tag Data" Style="{StaticResource EntryStyle}" />
+                <Entry Text="{Binding UserName, Mode=TwoWay}" Placeholder="User Name" Style="{StaticResource EntryStyle}" />
+                <Entry Text="{Binding CategoryData, Mode=TwoWay}" Placeholder="Category Data" Style="{StaticResource EntryStyle}" />
+                <Label Text="Publication Date" Style="{StaticResource LabelStyleHeader}" />
+                <DatePicker Date="{Binding PublicationDate, Mode=TwoWay}" Style="{StaticResource DatePickerStyle}" />
+                <StackLayout Orientation="Horizontal" Style="{StaticResource StackLayoutStyle}" Spacing="10">
+                    <Button Text="Cancel" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" />
+                    <Button Text="Save" Command="{Binding SaveCommand}" Style="{StaticResource ButtonStyle}" />
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -3,25 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMobilenBlog.Views.UserView.NewUserPage"
              Shell.PresentationMode="ModalAnimated"
-             Title="New User">
+             Title="New User"
+             Style="{StaticResource PageStyle}">
     <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
-            <Label Text="User ID" FontSize="Medium" />
-            <Entry Text="{Binding UserId, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Username" FontSize="Medium" />
-            <Editor Text="{Binding Username, Mode=TwoWay}" FontSize="Medium"/>
-            <Label Text="Email" FontSize="Medium" />
-            <Editor Text="{Binding Email, Mode=TwoWay}" FontSize="Medium"/>
-            <Label Text="Password" FontSize="Medium" />
-            <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="True" Placeholder="Password"/>
-            <Label Text="Registration Date" FontSize="Medium" />
-            <DatePicker Date="{Binding RegistrationDate, Mode=TwoWay}" FontSize="Medium"/>
-            <Label Text="Role ID" FontSize="Medium" />
-            <Entry Text="{Binding RoleId, Mode=TwoWay}" FontSize="Medium" />
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+        <ScrollView>
+            <StackLayout Spacing="10" Padding="20">
+                <Entry Text="{Binding UserId, Mode=TwoWay}" Placeholder="User ID" FontSize="Medium" Style="{StaticResource EntryStyle}" />
+                <Entry Text="{Binding Username, Mode=TwoWay}" Placeholder="Username" FontSize="Medium" Style="{StaticResource EntryStyle}" />
+                <Entry Text="{Binding Email, Mode=TwoWay}" Placeholder="Email" FontSize="Medium" Style="{StaticResource EntryStyle}" />
+                <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="True" Placeholder="Password" FontSize="Medium" Style="{StaticResource EntryStyle}" />
+                <DatePicker Date="{Binding RegistrationDate, Mode=TwoWay}" FontSize="Medium" Style="{StaticResource DatePickerStyle}" />
+                <Entry Text="{Binding RoleId, Mode=TwoWay}" Placeholder="Role ID" FontSize="Medium" Style="{StaticResource EntryStyle}" />
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Button Text="Cancel" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
+                    <Button Text="Save" Command="{Binding SaveCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

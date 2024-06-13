@@ -5,34 +5,52 @@
              xmlns:local="clr-namespace:AppMobilenBlog.ViewModels.UserViewModel"
              xmlns:model="clr-namespace:AppMobilenBlog.ServiceReference"
              x:Class="AppMobilenBlog.Views.UserView.UserPage"
-             x:Name="BrowseUserPage">
+             x:Name="BrowseUserPage"
+             Style="{StaticResource PageStyle}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add New Member" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
     <RefreshView x:DataType="local:UserViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="UsersListView"
-            ItemsSource="{Binding Items}"
-            SelectionMode="None">
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:UserForView">
-                        <Label Text="{Binding Username}" 
-                        Style="{DynamicResource ListItemTextStyle}" 
-                        FontSize="16" />
-                        <Label Text="{Binding Email}" 
-                        Style="{DynamicResource ListItemDetailTextStyle}"
-                        FontSize="13" />
-                        <Label Text="{Binding RegistrationDate, StringFormat='{0:MM/dd/yyyy}'}" 
-                        Style="{DynamicResource ListItemDetailTextStyle}"
-                        FontSize="13" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                            NumberOfTapsRequired="1"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:UserViewModel}}, Path=ItemTapped}"		
-                            CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                    <Frame Padding="10" Margin="5" BorderColor="{StaticResource PrimaryColor}" CornerRadius="10" HasShadow="True" BackgroundColor="{StaticResource BackgroundColor}">
+                        <StackLayout Padding="10" x:DataType="model:UserForView">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Login: " Style="{StaticResource LabelStyle}" FontSize="16" VerticalOptions="Center"/>
+                                <Label Text="{Binding Username}" Style="{StaticResource GoldBoldLabelStyle}" FontSize="16" VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Email: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding Email}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Registration Date: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding RegistrationDate, StringFormat='{0:MM/dd/yyyy}'}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Role: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding RoleName}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Label Text="Posts: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding PostCount}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="Likes: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding LikeCount}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="Comments: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding CommentCount}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:UserViewModel}}, Path=ItemTapped}"		
+                                    CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

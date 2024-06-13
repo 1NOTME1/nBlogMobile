@@ -2,30 +2,57 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMobilenBlog.Views.UserView.UserDetailPage"
-             Title="{Binding Title}">
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="User ID:" FontSize="Medium" />
-        <Label Text="{Binding UserId, Mode=TwoWay}" FontSize="Medium"/>
+             Title="{Binding Title}"
+             Style="{StaticResource PageStyle}">
+    <ScrollView>
+        <StackLayout Spacing="20" Padding="20">
+            <Label Text="User ID:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding UserId}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="Username:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding Username}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="Email:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding Email}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="Password Hash:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding PasswordHash}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="Registration Date:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding RegistrationDate, StringFormat='{0:MM/dd/yyyy}'}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="Role:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding RoleName}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="Number of Posts:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding PostCount}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="Number of Comments:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding CommentCount}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="Number of Likes:" Style="{StaticResource LabelStyleHeader}" />
+            <Label Text="{Binding LikeCount}" Style="{StaticResource LabelStyleContent}" />
 
-        <Label Text="Username:" FontSize="Medium" />
-        <Label Text="{Binding Username}" FontSize="Small"/>
+            <!-- Sekcja komentarzy -->
+            <Label Text="Comments:" Style="{StaticResource LabelStyleHeader}" />
+            <CollectionView ItemsSource="{Binding Comments}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding Content}" Style="{StaticResource LabelStyleContent}" />
+                            <Label Text="{Binding CommentDate, StringFormat='{0:MM/dd/yyyy}'}" Style="{StaticResource LabelStyleContent}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <Label Text="Email:" FontSize="Medium" />
-        <Label Text="{Binding Email}" FontSize="Small"/>
+            <!-- Dodawanie nowego komentarza -->
+            <Entry Placeholder="Add a comment" Text="{Binding NewCommentContent}" Style="{StaticResource EntryStyle}" />
+            <Button Text="Post Comment" Command="{Binding AddCommentCommand}" Style="{StaticResource ButtonStyle}" />
 
-        <Label Text="Password Hash:" FontSize="Medium" />
-        <Label Text="{Binding PasswordHash}" FontSize="Small"/>
+            <!-- Polubienia -->
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Button Text="Like" Command="{Binding LikeCommand}" Style="{StaticResource ButtonStyle}" />
+                <Label Text="{Binding LikeCount}" Style="{StaticResource LabelStyleContent}" VerticalOptions="Center"/>
+            </StackLayout>
 
-        <Label Text="Registration Date:" FontSize="Medium" />
-        <Label Text="{Binding RegistrationDate}" FontSize="Small"/>
-
-        <Label Text="Role ID:" FontSize="Medium" />
-        <Label Text="{Binding RoleId}" FontSize="Small"/>
-
-        <StackLayout Orientation="Horizontal">
-            <Button Text="Anuluj" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-            <Button Text="Edytuj" Command="{Binding UpdateCommand}" HorizontalOptions="FillAndExpand"></Button>
-            <Button Text="Usuń" Command="{Binding DeleteCommand}" HorizontalOptions="FillAndExpand"></Button>
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Button Text="Anuluj" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
+                <Button Text="Edytuj" Command="{Binding UpdateCommand}" Style="{StaticResource PrimaryButtonStyle}" HorizontalOptions="FillAndExpand"/>
+                <Button Text="Usuń" Command="{Binding DeleteCommand}" Style="{StaticResource DangerButtonStyle}" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -8,7 +8,7 @@
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
@@ -20,31 +20,38 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        
+
+        <!-- Header with Logo -->
         <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
+                <ContentView Padding="20,40,20,40" VerticalOptions="FillAndExpand">
+                    <Image Source="app_logo.png" VerticalOptions="Center" HeightRequest="80" />
                 </ContentView>
             </StackLayout>
         </StackLayout>
+
+        <!-- Main Content -->
         <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Label Text="Start developing now" FontSize="Title"/>
-                <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="0,0,0,0"/>
-                <Label FontSize="16" Padding="0,24,0,0">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <FormattedString.Spans>
-                                <Span Text="Learn more at "/>
-                                <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                            </FormattedString.Spans>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Button Margin="0,10,0,0" Text="Learn more"
-                        Command="{Binding OpenWebCommand}"
-                        BackgroundColor="{StaticResource Primary}"
-                        TextColor="White" />
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="20">
+                <Label Text="Witamy w nBlog!" FontSize="Title" Style="{StaticResource LabelStyleTitle}" HorizontalOptions="Center"/>
+                <Label Text="Twoje nowe miejsce na tworzenie i dzielenie się postami. Zarejestruj się, aby zacząć swoją przygodę." FontSize="16" Style="{StaticResource LabelStyleContent}" HorizontalOptions="Center"/>
+
+                <!-- Key Features -->
+                <Label Text="Kluczowe Funkcje:" FontSize="Subtitle" Style="{StaticResource LabelStyleHeader}" />
+                <StackLayout Padding="0,10,0,0">
+                    <Label Text="• Tworzenie i publikowanie postów" FontSize="16" Style="{StaticResource LabelStyleContent}" />
+                    <Label Text="• Komentowanie i polubienia postów innych użytkowników" FontSize="16" Style="{StaticResource LabelStyleContent}" />
+                    <Label Text="• Personalizacja swojego profilu" FontSize="16" Style="{StaticResource LabelStyleContent}" />
+                    <Label Text="• Przeglądanie kategorii i tagów" FontSize="16" Style="{StaticResource LabelStyleContent}" />
+                </StackLayout>
+
+                <!-- Call to Action Buttons -->
+                <StackLayout Orientation="Vertical" Padding="0,20,0,0">
+                    <Button Text="Zarejestruj się" Command="{Binding RegisterCommand}" Style="{StaticResource ButtonStyle}" />
+                    <Button Text="Zaloguj się" Command="{Binding LoginCommand}" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0"/>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </Grid>

@@ -2,28 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMobilenBlog.Views.PostDetailPage"
-             Title="{Binding Title}">
-
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Title:" FontSize="Medium" />
-        <Label Text="{Binding Title}" FontSize="Small"/>
-        <Label Text="Content:" FontSize="Medium" />
-        <Label Text="{Binding Content}" FontSize="Small"/>
-        <Label Text="Publication Date:" FontSize="Medium" />
-        <Label Text="{Binding PublicationDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="Small"/>
-
-        <!-- Nowe etykiety -->
-        <Label Text="User Name:" FontSize="Medium" />
-        <Label Text="{Binding UserName}" FontSize="Small"/>
-        <Label Text="Category Data:" FontSize="Medium" />
-        <Label Text="{Binding CategoryData}" FontSize="Small"/>
-        <Label Text="Tag Data:" FontSize="Medium" />
-        <Label Text="{Binding TagData}" FontSize="Small"/>
-
-        <StackLayout Orientation="Horizontal">
-            <Button Text="Anuluj" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-            <Button Text="Edytuj" Command="{Binding UpdateCommand}" HorizontalOptions="FillAndExpand"></Button>
-            <Button Text="Usuń" Command="{Binding DeleteCommand}" HorizontalOptions="FillAndExpand"></Button>
+             Title="{Binding Title}"
+             Style="{StaticResource PageStyle}">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            <Label Text="{Binding UserName}" FontSize="Small"/>
+            <Label Text="{Binding Title}" Style="{StaticResource LabelStyleTitle}" />
+            <Label Text="{Binding Content}" Style="{StaticResource LabelStyleContent}" />
+            <Label Text="{Binding PublicationDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="6" />
+            <Label Text="{Binding CategoryData}" Style="{StaticResource LabelStyleCategory}" />
+            <Label Text="{Binding TagData}" Style="{StaticResource LabelStyleTag}" />
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Button Text="Anuluj" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" />
+                <Button Text="Edytuj" Command="{Binding UpdateCommand}" Style="{StaticResource ButtonStyle}" />
+                <Button Text="Usuń" Command="{Binding DeleteCommand}" Style="{StaticResource ButtonStyle}" />
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>
