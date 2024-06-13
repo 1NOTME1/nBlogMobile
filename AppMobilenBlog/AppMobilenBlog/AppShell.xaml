@@ -61,13 +61,13 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <FlyoutItem Title="About" Icon="icon_about.png">
+    <FlyoutItem Title="Main Page" Icon="icon_about.png">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Browse" Icon="icon_feed.png">
+    <FlyoutItem Title="Posts" Icon="icon_feed.png">
         <ShellContent Route="PostsPage" ContentTemplate="{DataTemplate local:PostsPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Browse Users" Icon="icon_feed.png">
+    <FlyoutItem Title="Users" Icon="icon_feed.png">
         <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate localUser:UserPage}" />
     </FlyoutItem>
 
