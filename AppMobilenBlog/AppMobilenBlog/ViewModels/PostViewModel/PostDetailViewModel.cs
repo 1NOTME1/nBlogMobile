@@ -1,10 +1,13 @@
 ﻿using AppMobilenBlog.Helpers;
 using AppMobilenBlog.ServiceReference;
+using AppMobilenBlog.Services;
 using AppMobilenBlog.ViewModels.Abstractions;
 using AppMobilenBlog.Views;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace AppMobilenBlog.ViewModels.PostViewModel
@@ -19,12 +22,16 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private string userName;
         private string categoryData;
         private string tagData;
+        private readonly CategoryTagService _categoryTagService;
         #endregion
 
         #region Constructor
-        public PostDetailViewModel()
+        public PostDetailViewModel(IDataStore<PostForView> dataStore)
             : base("Post Details")
         {
+            _categoryTagService = new CategoryTagService(dataStore);
+            RemoveCategoryCommand = new Command<string>(async (categoryName) => await RemoveCategory(categoryName));
+            RemoveTagCommand = new Command<string>(async (tagName) => await RemoveTag(tagName));
         }
         #endregion
 
@@ -72,7 +79,35 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         }
         #endregion
 
+        #region Commands
+        public ICommand RemoveCategoryCommand { get; private set; }
+        public ICommand RemoveTagCommand { get; private set; }
+        #endregion
+
         #region Methods
+
+        private async Task RemoveCategory(string categoryName)
+        {
+            await _categoryTagService.RemoveCategoryAsync(PostId, categoryName);
+            var categories = CategoryData.Split(',').Select(c => c.Trim()).ToList();
+            if (categories.Remove(categoryName))
+            {
+                CategoryData = string.Join(", ", categories);
+                OnPropertyChanged(nameof(CategoryData));
+            }
+        }
+
+        private async Task RemoveTag(string tagName)
+        {
+            await _categoryTagService.RemoveTagAsync(PostId, tagName);
+            var tags = TagData.Split(' ').Select(t => t.TrimStart('#')).ToList();
+            if (tags.Remove(tagName))
+            {
+                TagData = string.Join(" ", tags.Select(t => "#" + t));
+                OnPropertyChanged(nameof(TagData));
+            }
+        }
+
         public override async Task LoadItem(int id)
         {
             try
@@ -109,4 +144,5 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             => Shell.Current.GoToAsync($"{nameof(PostUpdatePage)}?{nameof(PostUpdateViewModel.ItemId)}={ItemId}");
         #endregion
     }
+
 }

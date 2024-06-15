@@ -33,7 +33,7 @@ namespace RestAPInBlog.ForView
                 TagData = string.Join(" ", source.Tags.Select(t => "#" + t.TagName)),
                 CommentCount = source.Comments?.Count ?? 0,
                 LikeCount = source.Likes?.Count ?? 0,
-                Comments = source.Comments?.Select(c => (CommentForView)c).ToList() ?? new List<CommentForView>() // Map Comments
+                Comments = source.Comments?.Select(c => (CommentForView)c).ToList() ?? new List<CommentForView>()
             };
         }
 
@@ -50,7 +50,7 @@ namespace RestAPInBlog.ForView
                 PublicationDate = view.PublicationDate,
                 Categories = view.CategoryData?.Split(',').Select(name => new Category { CategoryName = name.Trim() }).ToList() ?? new List<Category>(),
                 Tags = view.TagData?.Split(' ').Select(tag => new Tag { TagName = tag.TrimStart('#') }).ToList() ?? new List<Tag>(),
-                Comments = view.Comments?.Select(c => (Comment)c).ToList() ?? new List<Comment>() // Map Comments
+                Comments = view.Comments?.Select(c => (Comment)c).ToList() ?? new List<Comment>()
             };
 
             return post;

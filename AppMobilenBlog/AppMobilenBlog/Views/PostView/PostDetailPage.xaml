@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AppMobilenBlog.ViewModels.PostViewModel"
              x:Class="AppMobilenBlog.Views.PostDetailPage"
              Title="{Binding Title}"
              Style="{StaticResource PageStyle}">
@@ -10,8 +11,37 @@
             <Label Text="{Binding Title}" Style="{StaticResource LabelStyleTitle}" />
             <Label Text="{Binding Content}" Style="{StaticResource LabelStyleContent}" />
             <Label Text="{Binding PublicationDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="6" />
-            <Label Text="{Binding CategoryData}" Style="{StaticResource LabelStyleCategory}" />
-            <Label Text="{Binding TagData}" Style="{StaticResource LabelStyleTag}" />
+
+            <!-- Kategorie -->
+            <Label Text="Kategorie:" Style="{StaticResource LabelStyleCategory}" />
+            <ListView ItemsSource="{Binding CategoryData, Converter={StaticResource StringToListConverter}, ConverterParameter=','}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
+                                <Label Text="{Binding .}" VerticalOptions="Center" />
+                                <Button Text="Usuń" Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostDetailViewModel}}, Path=RemoveCategoryCommand}" CommandParameter="{Binding .}" VerticalOptions="Center" Style="{StaticResource ButtonStyle}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Tagi -->
+            <Label Text="Tagi:" Style="{StaticResource LabelStyleTag}" />
+            <ListView ItemsSource="{Binding TagData, Converter={StaticResource StringToListConverter}, ConverterParameter=' '}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
+                                <Label Text="{Binding .}" VerticalOptions="Center" />
+                                <Button Text="Usuń" Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostDetailViewModel}}, Path=RemoveTagCommand}" CommandParameter="{Binding .}" VerticalOptions="Center" Style="{StaticResource ButtonStyle}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <Button Text="Anuluj" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" />
                 <Button Text="Edytuj" Command="{Binding UpdateCommand}" Style="{StaticResource ButtonStyle}" />
