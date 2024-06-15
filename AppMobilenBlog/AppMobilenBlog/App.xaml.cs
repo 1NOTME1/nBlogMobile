@@ -20,6 +20,7 @@ namespace AppMobilenBlog
             DependencyService.Register<IDataStore<PostForView>, PostDataStore>();
             DependencyService.Register<ILoginService, LoginService>();
 
+            DependencyService.Register<CommentDataStore>();
             MainPage = new NavigationPage(new Views.LoginPage());
             //MainPage = new AppShell();
         }

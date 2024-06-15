@@ -15,6 +15,7 @@ namespace AppMobilenBlog.ViewModels.Abstractions
         #endregion
         #region Properties
         public ObservableCollection<T> Items { get; }
+
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<T> ItemTapped { get; }

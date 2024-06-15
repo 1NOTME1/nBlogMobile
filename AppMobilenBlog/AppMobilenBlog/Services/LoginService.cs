@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using Xamarin.Essentials; // Dodaj referencję do Xamarin.Essentials
+using Xamarin.Essentials;
 
 namespace AppMobilenBlog.Services
 {
@@ -35,8 +35,9 @@ namespace AppMobilenBlog.Services
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(responseContent);
 
-                    // Zapisz UserId w preferencjach
+                    // Zapisz UserId i UserName w preferencjach
                     Preferences.Set("UserId", loginResponse.UserId);
+                    Preferences.Set("UserName", loginResponse.UserName); // Dodanie zapisu UserName
 
                     Debug.WriteLine("Login successful");
                     return true;
@@ -49,7 +50,6 @@ namespace AppMobilenBlog.Services
             }
             catch (HttpRequestException e)
             {
-                // Log the exception or handle it accordingly
                 Debug.WriteLine($"Request error: {e.Message}");
                 return false;
             }
@@ -65,5 +65,6 @@ namespace AppMobilenBlog.Services
     {
         public string Message { get; set; }
         public int UserId { get; set; }
+        public string UserName { get; set; } // Dodanie UserName do odpowiedzi
     }
 }

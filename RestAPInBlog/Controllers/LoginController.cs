@@ -21,16 +21,14 @@ namespace RestAPInBlog.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            // Hashowanie hasła podanego przez użytkownika
             var hashedPassword = HashPassword(loginRequest.Password);
 
-            // Walidacja danych logowania
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == loginRequest.Email && u.PasswordHash == hashedPassword);
 
             if (user != null)
             {
-                return Ok(new { Message = "Login successful", UserId = user.UserId });
+                return Ok(new { Message = "Login successful", UserId = user.UserId, UserName = user.Username });
             }
 
             return Unauthorized(new { Message = "Invalid email or password" });

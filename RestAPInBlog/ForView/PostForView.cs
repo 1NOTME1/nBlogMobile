@@ -1,6 +1,7 @@
 ﻿using RestAPInBlog.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RestAPInBlog.ForView
 {
@@ -13,9 +14,10 @@ namespace RestAPInBlog.ForView
         public string Content { get; set; }
         public DateTime? PublicationDate { get; set; }
         public string CategoryData { get; set; }
-        public string TagData { get; set; } // Add TagData property
+        public string TagData { get; set; }
         public int CommentCount { get; set; }
         public int LikeCount { get; set; }
+        public List<CommentForView> Comments { get; set; } = new List<CommentForView>(); // Add Comments property
 
         public static implicit operator PostForView(Post source)
         {
@@ -30,7 +32,8 @@ namespace RestAPInBlog.ForView
                 CategoryData = string.Join(", ", source.Categories.Select(c => c.CategoryName)),
                 TagData = string.Join(" ", source.Tags.Select(t => "#" + t.TagName)),
                 CommentCount = source.Comments?.Count ?? 0,
-                LikeCount = source.Likes?.Count ?? 0
+                LikeCount = source.Likes?.Count ?? 0,
+                Comments = source.Comments?.Select(c => (CommentForView)c).ToList() ?? new List<CommentForView>() // Map Comments
             };
         }
 
@@ -44,7 +47,10 @@ namespace RestAPInBlog.ForView
                 UserId = view.UserId,
                 Title = view.Title,
                 Content = view.Content,
-                PublicationDate = view.PublicationDate
+                PublicationDate = view.PublicationDate,
+                Categories = view.CategoryData?.Split(',').Select(name => new Category { CategoryName = name.Trim() }).ToList() ?? new List<Category>(),
+                Tags = view.TagData?.Split(' ').Select(tag => new Tag { TagName = tag.TrimStart('#') }).ToList() ?? new List<Tag>(),
+                Comments = view.Comments?.Select(c => (Comment)c).ToList() ?? new List<Comment>() // Map Comments
             };
 
             return post;

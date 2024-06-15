@@ -35,7 +35,6 @@ namespace AppMobilenBlog.ViewModels
 
             bool loginResult = false;
 
-            // Sprawdzenie czy _loginService nie jest null
             if (_loginService == null)
             {
                 Debug.WriteLine("_loginService is null");

@@ -1,5 +1,6 @@
 ﻿using AppMobilenBlog.Services;
 using AppMobilenBlog.Views;
+using AppMobilenBlog.Views.CommentView;
 using AppMobilenBlog.Views.PostView;
 using AppMobilenBlog.Views.UserView;
 using System;
@@ -19,6 +20,9 @@ namespace AppMobilenBlog
             Routing.RegisterRoute(nameof(NewUserPage), typeof(NewUserPage));
             Routing.RegisterRoute(nameof(UserUpdatePage), typeof(UserUpdatePage));
             Routing.RegisterRoute(nameof(UserDetailPage), typeof(UserDetailPage));
+
+            Routing.RegisterRoute(nameof(NewCommentPage), typeof(NewCommentPage));
+
 
             DependencyService.Register<ILoginService, LoginService>();
 

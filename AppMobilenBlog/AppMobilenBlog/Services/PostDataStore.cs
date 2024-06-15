@@ -29,5 +29,22 @@ namespace AppMobilenBlog.Services
 
         public override async Task<bool> AddItemToService(PostForView item)
             => await nBlogService.PostPOSTAsync(item).HandleRequest();
+
+        public async Task<bool> AddCommentToPost(int postId, CommentForView comment)
+        {
+            var response = await nBlogService.CommentPOSTAsync(comment);
+            if (response.CommentId > 0)
+            {
+                comment.CommentId = response.CommentId;
+                var post = Find(postId);
+                if (post != null)
+                {
+                    post.Comments.Add(comment);
+                }
+                return true;
+            }
+            return false;
+        }
+
     }
 }

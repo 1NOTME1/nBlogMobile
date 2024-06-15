@@ -49,9 +49,18 @@
                                    FontSize="12" 
                                    TextColor="Gray" 
                                    Style="{StaticResource LabelStyle}"/>
+                            <Label Text="Comments:" FontAttributes="Bold" FontSize="8" Style="{StaticResource LabelStyle}"/>
+                            <Label Text="{Binding CommentCount}" 
+                                   LineBreakMode="NoWrap"
+                                   FontSize="12" 
+                                   TextColor="Gray" 
+                                   Style="{StaticResource LabelStyle}"/>
                             <StackLayout Orientation="Horizontal" Spacing="10">
                                 <Button Text="Like" Style="{StaticResource ButtonStyle}"/>
-                                <Button Text="Comment" Command="{Binding Path=BindingContext.AddCommentCommand, Source={x:Reference BrowsePostsPage}}" CommandParameter="{Binding .}" Style="{StaticResource ButtonStyle}" />
+                                <Button Text="Comment" 
+                                        Command="{Binding Path=BindingContext.AddCommentCommand, Source={x:Reference BrowsePostsPage}}" 
+                                        CommandParameter="{Binding .}" 
+                                        Style="{StaticResource ButtonStyle}" />
                                 <Button Text="Repost" Style="{StaticResource ButtonStyle}"/>
                             </StackLayout>
                             <StackLayout.GestureRecognizers>
