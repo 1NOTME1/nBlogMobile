@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AppMobilenBlog.ViewModels.CommentViewModel"
+             x:Class="AppMobilenBlog.Views.CommentView.CommentsPage">
+
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding Comments}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Vertical" Padding="10">
+                        <Label Text="{Binding Content}" FontSize="Medium"/>
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Button Text="Delete"
+                                    Command="{Binding DeleteCommentCommand}"
+                                    CommandParameter="{Binding CommentId}"
+                                    BackgroundColor="Red"
+                                    TextColor="White" />
+                        </StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Entry x:Name="CommentEntry" Placeholder="Add a comment" />
+        <Button Text="Add Comment"
+                Command="{Binding AddCommentCommand}"
+                CommandParameter="{Binding Text, Source={x:Reference CommentEntry}}" />
+    </StackLayout>
+</ContentPage>

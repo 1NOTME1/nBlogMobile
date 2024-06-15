@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppMobilenBlog.Views.CommentView.NewCommentPage"
+             Title="Add New Comment">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Enter your comment below:" FontAttributes="Bold" />
+            <Editor x:Name="commentEditor" Text="{Binding CommentText}" Placeholder="Type your comment here..." AutoSize="TextChanges" />
+            <Button Text="Submit Comment" Command="{Binding SubmitCommentCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
