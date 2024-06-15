@@ -18,9 +18,7 @@
 
             <Style x:Key="GoldBoldLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="#FFD700" />
-                <!-- Złoty kolor -->
                 <Setter Property="FontAttributes" Value="Bold" />
-                <!-- Pogrubienie -->
             </Style>
 
             <Style x:Key="EntryStyle" TargetType="Entry">
@@ -118,8 +116,9 @@
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
             </Style>
 
-            <!-- Register the converter -->
+            <!-- Register the converters -->
             <local:StringToListConverter x:Key="StringToListConverter" />
+            <local:StringToTagListConverter x:Key="StringToTagListConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

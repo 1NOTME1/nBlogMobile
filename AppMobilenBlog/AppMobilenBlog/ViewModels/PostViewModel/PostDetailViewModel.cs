@@ -14,6 +14,9 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
 {
     public class PostDetailViewModel : AItemDetailsViewModel<PostForView>
     {
+        private readonly IDataStore<PostForView> _dataStore;
+        private readonly CategoryTagService _categoryTagService;
+
         #region Fields
         private int postId;
         private string title;
@@ -22,16 +25,23 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private string userName;
         private string categoryData;
         private string tagData;
-        private readonly CategoryTagService _categoryTagService;
         #endregion
 
         #region Constructor
+        public PostDetailViewModel()
+            : this(DependencyService.Get<IDataStore<PostForView>>())
+        {
+        }
+
         public PostDetailViewModel(IDataStore<PostForView> dataStore)
             : base("Post Details")
         {
-            _categoryTagService = new CategoryTagService(dataStore);
+            _dataStore = dataStore;
+            _categoryTagService = new CategoryTagService(_dataStore);
             RemoveCategoryCommand = new Command<string>(async (categoryName) => await RemoveCategory(categoryName));
-            RemoveTagCommand = new Command<string>(async (tagName) => await RemoveTag(tagName));
+            //RemoveTagCommand = new Command<string>(async (tagName) => await RemoveTag(tagName));
+            RemoveTagCommand = new Command<string>(async (tag) => await RemoveTagAsync(tag));
+
         }
         #endregion
 
@@ -97,22 +107,54 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             }
         }
 
-        private async Task RemoveTag(string tagName)
+        private async Task RemoveTagAsync(string tag)
         {
-            await _categoryTagService.RemoveTagAsync(PostId, tagName);
-            var tags = TagData.Split(' ').Select(t => t.TrimStart('#')).ToList();
-            if (tags.Remove(tagName))
+            Debug.WriteLine($"RemoveTagAsync called with tag: {tag}");
+
+            if (string.IsNullOrWhiteSpace(tag))
             {
-                TagData = string.Join(" ", tags.Select(t => "#" + t));
+                Debug.WriteLine("Tag is null or whitespace, exiting method.");
+                return;
+            }
+
+            try
+            {
+                var post = await DataStore.GetItemAsync(PostId); // Załaduj post
+
+                if (post == null)
+                {
+                    Debug.WriteLine("Post is null, exiting method.");
+                    return;
+                }
+
+                // Usuń tag z listy tagów
+                var tags = post.TagData.Split('#').Select(t => t.Trim()).ToList();
+                tags.Remove(tag);
+
+                post.TagData = string.Join("#", tags);
+
+                // Zapisz zmiany w bazie danych
+                await DataStore.UpdateItemAsync(post);
+
+                // Odśwież dane w ViewModelu
+                TagData = post.TagData;
+                Debug.WriteLine($"Tag {tag} removed successfully.");
+
                 OnPropertyChanged(nameof(TagData));
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in RemoveTagAsync: {ex.Message}");
+            }
         }
+
+
 
         public override async Task LoadItem(int id)
         {
             try
             {
-                var item = await DataStore.GetItemAsync(id);
+                var item = await _dataStore.GetItemAsync(id);
                 if (item != null)
                 {
                     this.CopyProperties(item);

@@ -30,7 +30,7 @@ namespace RestAPInBlog.ForView
                 Content = source.Content,
                 PublicationDate = source.PublicationDate,
                 CategoryData = string.Join(", ", source.Categories.Select(c => c.CategoryName)),
-                TagData = string.Join(" ", source.Tags.Select(t => "#" + t.TagName)),
+                TagData = string.Join("#", source.Tags.Select(t => t.TagName)), // Łączy tagi znakiem '#'
                 CommentCount = source.Comments?.Count ?? 0,
                 LikeCount = source.Likes?.Count ?? 0,
                 Comments = source.Comments?.Select(c => (CommentForView)c).ToList() ?? new List<CommentForView>()
@@ -49,7 +49,7 @@ namespace RestAPInBlog.ForView
                 Content = view.Content,
                 PublicationDate = view.PublicationDate,
                 Categories = view.CategoryData?.Split(',').Select(name => new Category { CategoryName = name.Trim() }).ToList() ?? new List<Category>(),
-                Tags = view.TagData?.Split(' ').Select(tag => new Tag { TagName = tag.TrimStart('#') }).ToList() ?? new List<Tag>(),
+                Tags = view.TagData?.Split('#').Select(tag => new Tag { TagName = tag.TrimStart('#') }).ToList() ?? new List<Tag>(), // Dzieli tagi po '#'
                 Comments = view.Comments?.Select(c => (Comment)c).ToList() ?? new List<Comment>()
             };
 
