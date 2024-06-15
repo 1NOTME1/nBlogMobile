@@ -36,7 +36,7 @@ namespace AppMobilenBlog.Services
                     var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(responseContent);
 
                     // Zapisz UserId i UserName w preferencjach
-                    Preferences.Set("UserId", loginResponse.UserId);
+                    Preferences.Set("CurrentUserId", loginResponse.UserId);
                     Preferences.Set("UserName", loginResponse.UserName); // Dodanie zapisu UserName
 
                     Debug.WriteLine("Login successful");
@@ -59,12 +59,13 @@ namespace AppMobilenBlog.Services
                 throw;
             }
         }
+
     }
 
     public class LoginResponse
     {
         public string Message { get; set; }
         public int UserId { get; set; }
-        public string UserName { get; set; } // Dodanie UserName do odpowiedzi
+        public string UserName { get; set; }
     }
 }

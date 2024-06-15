@@ -1,36 +1,39 @@
-﻿using AppMobilenBlog.ServiceReference;
-using AppMobilenBlog.Services;
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
+using AppMobilenBlog.ServiceReference;
+using AppMobilenBlog.ViewModels.Abstractions;
+using AppMobilenBlog.Services;
+using Xamarin.Essentials;
 
-namespace AppMobilenBlog.ViewModels
+namespace AppMobilenBlog.ViewModels.CommentViewModel
 {
     public class NewCommentViewModel : BaseViewModel
     {
-        private string _commentText;
-        private readonly CommentDataStore _commentDataStore;
-        private readonly int _postId;
-        private readonly int _userId;
+        private readonly ICommentDataStore _commentDataStore;
 
-        public string CommentText
-        {
-            get => _commentText;
-            set => SetProperty(ref _commentText, value);
-        }
-
-        public ICommand SubmitCommentCommand { get; }
-
-        public NewCommentViewModel(CommentDataStore commentDataStore, int postId, int userId)
+        public NewCommentViewModel(ICommentDataStore commentDataStore, int postId, int userId)
         {
             _commentDataStore = commentDataStore;
-            _postId = postId;
-            _userId = userId;
-
             SubmitCommentCommand = new Command(async () => await SubmitComment());
+            PostId = postId;
+            UserId = userId;
+            UserName = Preferences.Get("UserName", "DefaultUserName");
         }
+
+        public Command SubmitCommentCommand { get; }
+
+        private string commentText;
+        public string CommentText
+        {
+            get => commentText;
+            set => SetProperty(ref commentText, value);
+        }
+
+        public int PostId { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
 
         private async Task SubmitComment()
         {
@@ -40,30 +43,27 @@ namespace AppMobilenBlog.ViewModels
                 return;
             }
 
-            // Pobierz nazwę użytkownika (przykładowo z preferencji aplikacji lub innego źródła)
-            var userName = Preferences.Get("UserName", string.Empty);
-            var userId = Preferences.Get("UserId", 0); // Pobierz user_id z preferencji
-            Console.WriteLine($"Retrieved UserName: {userName}, UserId: {userId}");  // Dodanie logowania
-            if (string.IsNullOrWhiteSpace(userName) || userId == 0)
+            if (PostId == 0 || UserId == 0)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "User name and ID must be provided", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Invalid post or user", "OK");
                 return;
             }
 
             var newComment = new CommentForView
             {
-                PostId = _postId,
-                UserId = userId,
+                PostId = PostId,
+                UserId = UserId,
+                UserName = UserName,
                 Content = CommentText,
-                CommentDate = DateTime.Now,
-                UserName = userName  // Ustawienie nazwy użytkownika
+                CommentDate = DateTime.Now
             };
 
-            bool success = await _commentDataStore.AddItemAsync(newComment);
+            var success = await _commentDataStore.AddItemAsync(newComment);
 
             if (success)
             {
-                await Shell.Current.GoToAsync("..");
+                await Application.Current.MainPage.DisplayAlert("Success", "Comment added", "OK");
+                CommentText = string.Empty;
             }
             else
             {

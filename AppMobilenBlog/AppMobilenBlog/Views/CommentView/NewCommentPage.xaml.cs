@@ -1,19 +1,22 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using AppMobilenBlog.ViewModels;
+using AppMobilenBlog.ViewModels.CommentViewModel;
 using AppMobilenBlog.Services;
 using Xamarin.Essentials;
 
 namespace AppMobilenBlog.Views.CommentView
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [QueryProperty(nameof(PostId), "postId")]  // Deklaracja QueryProperty dla PostId
-    [QueryProperty(nameof(UserId), "userId")]  // Deklaracja QueryProperty dla UserId
+    [QueryProperty(nameof(PostId), "postId")]
+    [QueryProperty(nameof(UserId), "userId")]
     public partial class NewCommentPage : ContentPage
     {
+        private readonly ICommentDataStore _commentDataStore;
+
         public NewCommentPage()
         {
             InitializeComponent();
+            _commentDataStore = DependencyService.Get<ICommentDataStore>();
         }
 
         private int postId;
@@ -41,8 +44,13 @@ namespace AppMobilenBlog.Views.CommentView
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var commentDataStore = DependencyService.Get<CommentDataStore>();
-            BindingContext = new NewCommentViewModel(commentDataStore, PostId, UserId);
+            if (PostId == 0 || UserId == 0)
+            {
+                PostId = Preferences.Get("CurrentPostId", 0);
+                UserId = Preferences.Get("CurrentUserId", 0);
+            }
+            var viewModel = new NewCommentViewModel(_commentDataStore, PostId, UserId);
+            BindingContext = viewModel;
         }
     }
 }

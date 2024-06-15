@@ -29,7 +29,8 @@ namespace RestAPInBlog.Controllers
             {
                 return NotFound();
             }
-            return (await _context.Comments.ToListAsync()).Select(cm => (CommentForView)cm).ToList();
+            return (await _context.Comments.Include(c => c.User).ToListAsync())
+                .Select(cm => (CommentForView)cm).ToList();
         }
 
         // GET: api/Comment/5
@@ -40,7 +41,7 @@ namespace RestAPInBlog.Controllers
             {
                 return NotFound();
             }
-            var comment = await _context.Comments.FindAsync(id);
+            var comment = await _context.Comments.Include(c => c.User).FirstOrDefaultAsync(c => c.CommentId == id);
 
             if (comment == null)
             {
@@ -51,7 +52,6 @@ namespace RestAPInBlog.Controllers
         }
 
         // PUT: api/Comment/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment(int id, CommentForView comment)
         {
@@ -82,8 +82,6 @@ namespace RestAPInBlog.Controllers
         }
 
         // POST: api/Comment
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // POST: api/Comment
         [HttpPost]
         public async Task<ActionResult<CommentForView>> PostComment(CommentForView comment)
         {
@@ -97,18 +95,8 @@ namespace RestAPInBlog.Controllers
             await _context.SaveChangesAsync();
             comment.CommentId = cmdb.CommentId;
 
-            // Logowanie statusu odpowiedzi
-            Console.WriteLine($"Status Code: {HttpContext.Response.StatusCode}");
-
             return CreatedAtAction("GetComment", new { id = comment.CommentId }, comment);
         }
-
-
-
-
-
-
-
 
         // DELETE: api/Comment/5
         [HttpDelete("{id}")]

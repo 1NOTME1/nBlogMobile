@@ -12,8 +12,8 @@
     </ContentPage.ToolbarItems>
     <RefreshView x:DataType="local:PostsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="PostsListView"
-                    ItemsSource="{Binding Items}"
-                    SelectionMode="None">
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="10" Margin="5" BorderColor="{StaticResource PrimaryColor}" CornerRadius="10" HasShadow="True" BackgroundColor="{StaticResource BackgroundColor}">
@@ -56,7 +56,11 @@
                                    TextColor="Gray" 
                                    Style="{StaticResource LabelStyle}"/>
                             <StackLayout Orientation="Horizontal" Spacing="10">
-                                <Button Text="Like" Style="{StaticResource ButtonStyle}"/>
+                                <Button Text="Like" 
+                                        Command="{Binding Path=BindingContext.LikePostCommand, Source={x:Reference BrowsePostsPage}}" 
+                                        CommandParameter="{Binding .}" 
+                                        Style="{StaticResource ButtonStyle}"
+                                        Clicked="OnLikeButtonClicked" />
                                 <Button Text="Comment" 
                                         Command="{Binding Path=BindingContext.AddCommentCommand, Source={x:Reference BrowsePostsPage}}" 
                                         CommandParameter="{Binding .}" 
@@ -65,10 +69,9 @@
                             </StackLayout>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer 
-                                    NumberOfTapsRequired="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostsViewModel}}, Path=ItemTapped}"		
-                                    CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostsViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}" />
                             </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </Frame>

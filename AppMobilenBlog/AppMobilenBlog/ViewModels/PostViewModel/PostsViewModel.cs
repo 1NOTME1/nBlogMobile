@@ -5,47 +5,90 @@ using Xamarin.Forms;
 using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.ViewModels.Abstractions;
 using AppMobilenBlog.Services;
-using System.Linq;
-using AppMobilenBlog.Views.CommentView;
+using Xamarin.Essentials;
 using AppMobilenBlog.Views.PostView;
 using AppMobilenBlog.Views;
+using AppMobilenBlog.Views.CommentView;
 
 namespace AppMobilenBlog.ViewModels.PostViewModel
 {
     public class PostsViewModel : AListViewModel<PostForView>
     {
         private readonly CommentDataStore _commentDataStore;
+        private readonly ILikeService _likeService;
 
         public PostsViewModel()
             : base("Browse Posts")
         {
             _commentDataStore = DependencyService.Get<CommentDataStore>();
+            _likeService = DependencyService.Get<ILikeService>();
             AddCommentCommand = new Command<PostForView>(async (post) => await ExecuteAddCommentCommand(post));
-            Task.Run(() => LoadItemsAsync()); // Wywołanie metody ładowania elementów w konstruktorze
+            LikePostCommand = new Command<PostForView>(async (post) => await ExecuteLikePostCommand(post));
+            Task.Run(() => LoadItemsAsync());
         }
 
         public Command<PostForView> AddCommentCommand { get; private set; }
+        public Command<PostForView> LikePostCommand { get; private set; }
 
         private async Task ExecuteAddCommentCommand(PostForView post)
         {
             if (post != null)
             {
-                // Zakładając, że NewCommentPage akceptuje postId jako parametr
                 await Shell.Current.GoToAsync($"{nameof(NewCommentPage)}?postId={post.PostId}");
             }
         }
 
-        private async Task LoadItemsAsync()
+        private async Task ExecuteLikePostCommand(PostForView post)
+        {
+            if (post == null || IsBusy) return;
+
+            IsBusy = true; // Deaktywuje przycisk
+            try
+            {
+                var currentUserId = Preferences.Get("CurrentUserId", 0); // Pobierz bieżące id użytkownika z preferencji
+                if (currentUserId == 0)
+                {
+                    throw new Exception("Current user ID is not set.");
+                }
+
+                var alreadyLiked = await _likeService.CheckIfUserLikedPost(post.PostId, currentUserId);
+                if (!alreadyLiked)
+                {
+                    await _likeService.AddLike(post.PostId, currentUserId);
+                    post.LikeCount++;
+                    OnPropertyChanged(nameof(post.LikeCount));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error liking post: {ex.Message}");
+                // Możesz dodać kod wyświetlający powiadomienie dla użytkownika o błędzie
+            }
+            finally
+            {
+                IsBusy = false; // Aktywuje przycisk
+            }
+        }
+
+
+
+
+        public async Task LoadItemsAsync()
         {
             IsBusy = true;
             try
             {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
+                var items = await DataStore?.GetItemsAsync(true);
+                if (items != null)
                 {
-                    item.CommentCount = await _commentDataStore.GetCommentCountForPostAsync(item.PostId);
-                    Items.Add(item);
+                    foreach (var item in items)
+                    {
+                        if (_commentDataStore != null)
+                        {
+                            item.CommentCount = await _commentDataStore.GetCommentCountForPostAsync(item.PostId);
+                            Items.Add(item);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

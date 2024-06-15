@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using RestAPInBlog.Model.Context;
 using Microsoft.EntityFrameworkCore;
+using RestAPInBlog.Model.Context;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RestAPInBlog.Controllers
 {

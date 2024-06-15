@@ -1,5 +1,4 @@
 ﻿using RestAPInBlog.Model;
-using System;
 
 namespace AppMobilenBlog.ServiceReference
 {
@@ -23,14 +22,12 @@ namespace AppMobilenBlog.ServiceReference
         {
             if (view == null) return null;
 
-            var like = new Like
+            return new Like
             {
                 LikeId = view.LikeId,
                 PostId = view.PostId,
                 UserId = view.UserId
             };
-
-            return like;
         }
     }
 }

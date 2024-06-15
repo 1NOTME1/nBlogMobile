@@ -1,15 +1,11 @@
 ﻿using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.Services;
-using AppMobilenBlog.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AppMobilenBlog
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();
@@ -19,8 +15,9 @@ namespace AppMobilenBlog
             DependencyService.Register<IDataStore<UserForView>, UserDataStore>();
             DependencyService.Register<IDataStore<PostForView>, PostDataStore>();
             DependencyService.Register<ILoginService, LoginService>();
-
             DependencyService.Register<CommentDataStore>();
+            DependencyService.Register<ICommentDataStore, CommentDataStore>();
+
             MainPage = new NavigationPage(new Views.LoginPage());
             //MainPage = new AppShell();
         }

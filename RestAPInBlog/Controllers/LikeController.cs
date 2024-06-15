@@ -77,23 +77,34 @@ namespace RestAPInBlog.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/Like
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LikeForView>> PostLike(LikeForView like)
+        public async Task<ActionResult<LikeForView>> PostLike(LikeForView likeView)
         {
             if (_context.Likes == null)
             {
                 return Problem("Entity set 'nBlogDbContext.Likes' is null.");
             }
+            var like = new Like
+            {
+                // Przypisz wartości z likeView do nowego obiektu Like, upewnij się, że wszystkie wymagane pola są ustawione
+                PostId = likeView.PostId,
+                UserId = likeView.UserId
+            };
+
             _context.Likes.Add(like);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLike", new { id = like.LikeId }, like);
+            // Ustaw ID po zapisaniu w DB
+            likeView.LikeId = like.LikeId;
+
+            return CreatedAtAction("GetLike", new { id = like.LikeId }, likeView);
         }
+
 
         // DELETE: api/Like/5
         [HttpDelete("{id}")]
@@ -112,7 +123,7 @@ namespace RestAPInBlog.Controllers
             _context.Likes.Remove(like);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool LikeExists(int id)

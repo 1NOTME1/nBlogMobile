@@ -17,7 +17,7 @@ namespace RestAPInBlog.ForView
         public string TagData { get; set; }
         public int CommentCount { get; set; }
         public int LikeCount { get; set; }
-        public List<CommentForView> Comments { get; set; } = new List<CommentForView>(); // Add Comments property
+        public List<CommentForView> Comments { get; set; } = new List<CommentForView>();
 
         public static implicit operator PostForView(Post source)
         {
@@ -30,7 +30,7 @@ namespace RestAPInBlog.ForView
                 Content = source.Content,
                 PublicationDate = source.PublicationDate,
                 CategoryData = string.Join(", ", source.Categories.Select(c => c.CategoryName)),
-                TagData = string.Join("#", source.Tags.Select(t => t.TagName)), // Łączy tagi znakiem '#'
+                TagData = string.Join("#", source.Tags.Select(t => t.TagName)),
                 CommentCount = source.Comments?.Count ?? 0,
                 LikeCount = source.Likes?.Count ?? 0,
                 Comments = source.Comments?.Select(c => (CommentForView)c).ToList() ?? new List<CommentForView>()
@@ -41,19 +41,17 @@ namespace RestAPInBlog.ForView
         {
             if (view == null) return null;
 
-            var post = new Post
+            return new Post
             {
                 PostId = view.PostId,
                 UserId = view.UserId,
                 Title = view.Title,
                 Content = view.Content,
                 PublicationDate = view.PublicationDate,
-                Categories = view.CategoryData?.Split(',').Select(name => new Category { CategoryName = name.Trim() }).ToList() ?? new List<Category>(),
-                Tags = view.TagData?.Split('#').Select(tag => new Tag { TagName = tag.TrimStart('#') }).ToList() ?? new List<Tag>(), // Dzieli tagi po '#'
-                Comments = view.Comments?.Select(c => (Comment)c).ToList() ?? new List<Comment>()
+                Categories = view.CategoryData?.Split(',').Select(name => new Category { CategoryName = name.Trim() }).ToList(),
+                Tags = view.TagData?.Split('#').Select(tag => new Tag { TagName = tag.TrimStart('#') }).ToList(),
+                Comments = view.Comments?.Select(c => (Comment)c).ToList()
             };
-
-            return post;
         }
     }
 }

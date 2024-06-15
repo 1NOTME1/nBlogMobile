@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AppMobilenBlog.Services
 {
-    public class CommentDataStore : AListDataStore<CommentForView>
+    public class CommentDataStore : AListDataStore<CommentForView>, ICommentDataStore
     {
         public CommentDataStore() : base()
         {
@@ -32,6 +32,7 @@ namespace AppMobilenBlog.Services
                 if (response.CommentId > 0)
                 {
                     item.CommentId = response.CommentId;
+                    items.Add(item); // Dodaj element do lokalnej listy
                     return true;
                 }
             }
@@ -74,5 +75,8 @@ namespace AppMobilenBlog.Services
         {
             return items.FirstOrDefault(x => x.CommentId == id);
         }
+
+        // Implementacja metody AddItemAsync
+        public Task<bool> AddItemAsync(CommentForView item) => AddItemToService(item);
     }
 }
