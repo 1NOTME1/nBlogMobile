@@ -31,9 +31,9 @@ namespace RestAPInBlog.Controllers
             }
 
             var posts = await _context.Posts
-                .Include(p => p.User) // Include User
-                .Include(p => p.Categories) // Include Categories
-                .Include(p => p.Tags) // Include Tags
+                .Include(p => p.User)
+                .Include(p => p.Categories)
+                .Include(p => p.Tags)
                 .ToListAsync();
 
             return posts.Select(po => (PostForView)po).ToList();
@@ -143,6 +143,7 @@ namespace RestAPInBlog.Controllers
 
         // POST: api/Post
         [HttpPost]
+        [HttpPost]
         public async Task<ActionResult<PostForView>> PostPost(PostForView postView)
         {
             if (_context.Posts == null)
@@ -200,6 +201,7 @@ namespace RestAPInBlog.Controllers
 
             return CreatedAtAction("GetPost", new { id = post.PostId }, postView);
         }
+
 
         // DELETE: api/Post/5
         [HttpDelete("{id}")]

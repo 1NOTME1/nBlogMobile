@@ -11,19 +11,24 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
 {
     public class UserDetailsViewModel : AItemDetailsViewModel<UserForView>
     {
-
         #region Fields
         private int userId;
         private string username;
         private string email;
         private DateTime? registrationDate;
         private int roleId;
+        private string roleName;
         private string passwordHash;
+        private int postCount;
+        private int commentCount;
+        private int likeCount;
         #endregion
+
         #region Constructor
         public UserDetailsViewModel()
-        : base("User Details") { }
+            : base("User Details") { }
         #endregion
+
         #region Properties
         public int UserId
         {
@@ -33,7 +38,6 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 userId = value;
             }
         }
-
 
         public string Username
         {
@@ -65,11 +69,32 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             set => SetProperty(ref roleId, value);
         }
 
+        public string RoleName
+        {
+            get => roleName;
+            set => SetProperty(ref roleName, value);
+        }
+
+        public int PostCount
+        {
+            get => postCount;
+            set => SetProperty(ref postCount, value);
+        }
+
+        public int CommentCount
+        {
+            get => commentCount;
+            set => SetProperty(ref commentCount, value);
+        }
+
+        public int LikeCount
+        {
+            get => likeCount;
+            set => SetProperty(ref likeCount, value);
+        }
 
         protected override Task GoToUpdatePage()
             => Shell.Current.GoToAsync($"{nameof(UserUpdatePage)}?{nameof(UserUpdateViewModel.ItemId)}={ItemId}");
-
-
 
         public override async Task LoadItem(int id)
         {
@@ -99,8 +124,6 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 Debug.WriteLine($"Failed to Load User: {ex.Message}");
             }
         }
-
-
         #endregion
     }
 }

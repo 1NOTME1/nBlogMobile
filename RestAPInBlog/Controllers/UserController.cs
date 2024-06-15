@@ -27,8 +27,26 @@ namespace RestAPInBlog.Controllers
             {
                 return NotFound();
             }
-            return (await _context.Users.ToListAsync()).Select(cl => (UserForView)cl).ToList();
+            var users = await _context.Users
+                .Include(u => u.Role) // Dołączamy dane z tabeli roles
+                .Select(u => new UserForView
+                {
+                    UserId = u.UserId,
+                    Username = u.Username,
+                    Email = u.Email,
+                    RegistrationDate = u.RegistrationDate,
+                    RoleId = u.RoleId,
+                    RoleName = u.Role.Name, // Pobieramy nazwę roli
+                    PostCount = u.Posts.Count(),
+                    CommentCount = u.Comments.Count(),
+                    LikeCount = u.Likes.Count(),
+                    Password = u.PasswordHash
+                })
+                .ToListAsync();
+
+            return users;
         }
+
 
         // GET: api/User/5
         [HttpGet("{id}")]
@@ -38,14 +56,33 @@ namespace RestAPInBlog.Controllers
             {
                 return NotFound();
             }
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users
+                .Include(u => u.Role) // Dołączamy dane z tabeli roles
+                .Include(u => u.Posts) // Dołączamy posty
+                .Include(u => u.Comments) // Dołączamy komentarze
+                .Include(u => u.Likes) // Dołączamy polubienia
+                .Where(u => u.UserId == id)
+                .Select(u => new UserForView
+                {
+                    UserId = u.UserId,
+                    Username = u.Username,
+                    Email = u.Email,
+                    RegistrationDate = u.RegistrationDate,
+                    RoleId = u.RoleId,
+                    RoleName = u.Role.Name, // Pobieramy nazwę roli
+                    PostCount = u.Posts.Count(), // Liczba postów
+                    CommentCount = u.Comments.Count(), // Liczba komentarzy
+                    LikeCount = u.Likes.Count(), // Liczba polubień
+                    Password = u.PasswordHash
+                })
+                .FirstOrDefaultAsync();
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return (UserForView)user;
+            return user;
         }
 
         // PUT: api/User/5
