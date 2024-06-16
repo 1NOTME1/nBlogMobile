@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using System.Diagnostics;
 
 namespace AppMobilenBlog.ViewModels.CommentViewModel
 {
@@ -59,15 +60,13 @@ namespace AppMobilenBlog.ViewModels.CommentViewModel
                 CommentDate = DateTime.Now
             };
 
-            if (await commentDataStore.AddItemAsync(newComment))
-            {
+            var addItemResult = await commentDataStore.AddItemAsync(newComment);
                 Comments.Add(newComment);
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Failed to add comment", "OK");
-            }
+                // Przeniesienie na stronę wyświetlającą posty
+                await Shell.Current.GoToAsync(".."); // Zakładając, że strona postów jest poziom wyżej
         }
+
+
 
         private async Task DeleteComment(int commentId)
         {

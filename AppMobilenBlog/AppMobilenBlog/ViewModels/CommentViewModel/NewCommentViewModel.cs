@@ -60,15 +60,8 @@ namespace AppMobilenBlog.ViewModels.CommentViewModel
 
             var success = await _commentDataStore.AddItemAsync(newComment);
 
-            if (success)
-            {
                 await Application.Current.MainPage.DisplayAlert("Success", "Comment added", "OK");
                 CommentText = string.Empty;
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Failed to add comment", "OK");
-            }
         }
     }
 }
