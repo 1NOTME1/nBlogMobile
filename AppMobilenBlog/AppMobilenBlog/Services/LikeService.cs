@@ -50,17 +50,24 @@ namespace AppMobilenBlog.Services
         {
             try
             {
+                if (nBlogService == null)
+                {
+                    Debug.WriteLine("Service is not initialized.");
+                    return;
+                }
+
                 Debug.WriteLine($"Checking if user with ID {userId} exists...");
 
                 var user = await nBlogService.UserGETAsync(userId);
                 if (user == null)
                 {
-                    throw new Exception($"User with ID {userId} does not exist.");
+                    Debug.WriteLine($"User with ID {userId} does not exist.");
+                    return;
                 }
 
                 var newLike = new LikeForView { PostId = postId, UserId = userId };
                 var response = await nBlogService.LikePOSTAsync(newLike);
-                if (response.LikeId > 0)
+                if (response != null && response.LikeId > 0)
                 {
                     newLike.LikeId = response.LikeId;
                     items.Add(newLike);
@@ -68,15 +75,18 @@ namespace AppMobilenBlog.Services
             }
             catch (AppMobilenBlog.ServiceReference.ApiException ex)
             {
-                Debug.WriteLine($"API Exception: {ex.Message}");
-                Debug.WriteLine($"Status Code: {ex.StatusCode}");
+                Debug.WriteLine($"API Exception: {ex.Message}, Status Code: {ex.StatusCode}");
                 if (ex.StatusCode == 404)
                 {
-                    throw new Exception("User not found.");
+                    Debug.WriteLine("User not found.");
                 }
-                throw; // Ponowne rzucenie wyjątku, jeśli nie jest to błąd 404
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
         }
+
 
         public async Task<bool> IsPostLikedByUser(int postId, int userId)
         {

@@ -18,14 +18,23 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private readonly ILikeService _likeService;
 
         public PostsViewModel()
-            : base("Browse Posts")
+    : base("Browse Posts")
         {
+            Debug.WriteLine("Initializing PostsViewModel...");
             _commentDataStore = DependencyService.Get<CommentDataStore>();
             _likeService = DependencyService.Get<ILikeService>();
+
+            if (_commentDataStore == null)
+                Debug.WriteLine("CommentDataStore is null!");
+
+            if (_likeService == null)
+                Debug.WriteLine("LikeService is null!");
+
             AddCommentCommand = new Command<PostForView>(async (post) => await ExecuteAddCommentCommand(post));
             LikePostCommand = new Command<PostForView>(async (post) => await ExecuteLikePostCommand(post));
             Task.Run(() => LoadItemsAsync());
         }
+
 
         public Command<PostForView> AddCommentCommand { get; private set; }
         public Command<PostForView> LikePostCommand { get; private set; }
@@ -42,13 +51,20 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         {
             if (post == null || IsBusy) return;
 
-            IsBusy = true; // Deaktywuje przycisk
+            IsBusy = true;
             try
             {
-                var currentUserId = Preferences.Get("CurrentUserId", 0); // Pobierz bieżące id użytkownika z preferencji
+                var currentUserId = Preferences.Get("CurrentUserId", 0);
                 if (currentUserId == 0)
                 {
+                    Debug.WriteLine("No user ID available.");
                     throw new Exception("Current user ID is not set.");
+                }
+
+                if (_likeService == null)
+                {
+                    Debug.WriteLine("LikeService is not initialized.");
+                    throw new Exception("LikeService instance is null.");
                 }
 
                 var alreadyLiked = await _likeService.CheckIfUserLikedPost(post.PostId, currentUserId);
@@ -62,13 +78,14 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error liking post: {ex.Message}");
-                // Możesz dodać kod wyświetlający powiadomienie dla użytkownika o błędzie
             }
             finally
             {
-                IsBusy = false; // Aktywuje przycisk
+                IsBusy = false;
             }
         }
+
+
 
 
 

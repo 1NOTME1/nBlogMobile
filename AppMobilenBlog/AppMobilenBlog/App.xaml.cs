@@ -16,6 +16,7 @@ namespace AppMobilenBlog
             DependencyService.Register<IDataStore<PostForView>, PostDataStore>();
             DependencyService.Register<ILoginService, LoginService>();
             DependencyService.Register<CommentDataStore>();
+            DependencyService.Register<ILikeService, LikeService>();
             DependencyService.Register<ICommentDataStore, CommentDataStore>();
 
             MainPage = new NavigationPage(new Views.LoginPage());

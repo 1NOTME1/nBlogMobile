@@ -59,8 +59,7 @@
                                 <Button Text="Like" 
                                         Command="{Binding Path=BindingContext.LikePostCommand, Source={x:Reference BrowsePostsPage}}" 
                                         CommandParameter="{Binding .}" 
-                                        Style="{StaticResource ButtonStyle}"
-                                        Clicked="OnLikeButtonClicked" />
+                                        Style="{StaticResource ButtonStyle}" />
                                 <Button Text="Comment" 
                                         Command="{Binding Path=BindingContext.AddCommentCommand, Source={x:Reference BrowsePostsPage}}" 
                                         CommandParameter="{Binding .}" 
