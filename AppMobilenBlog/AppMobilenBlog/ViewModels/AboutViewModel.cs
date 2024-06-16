@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace AppMobilenBlog.ViewModels
@@ -9,9 +8,29 @@ namespace AppMobilenBlog.ViewModels
         public AboutViewModel()
         {
             Title = "About";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
+
+            NavigateHomeCommand = new Command(OnNavigateHome);
+            NavigatePostsCommand = new Command(OnNavigatePosts);
+            NavigateUsersCommand = new Command(OnNavigateUsers);
         }
 
-        public ICommand OpenWebCommand { get; }
+        public ICommand NavigateHomeCommand { get; }
+        public ICommand NavigatePostsCommand { get; }
+        public ICommand NavigateUsersCommand { get; }
+
+        private async void OnNavigateHome()
+        {
+            await Shell.Current.GoToAsync("//AboutPage");
+        }
+
+        private async void OnNavigatePosts()
+        {
+            await Shell.Current.GoToAsync("//PostsPage");
+        }
+
+        private async void OnNavigateUsers()
+        {
+            await Shell.Current.GoToAsync("//UsersPage");
+        }
     }
 }

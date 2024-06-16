@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:AppMobilenBlog.ViewModels"
              x:Class="AppMobilenBlog.Views.LoginPage"
              Shell.NavBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="CenterAndExpand" Spacing="20">
-            <Label Text="Login" Style="{StaticResource LabelStyle}" FontSize="Large" HorizontalOptions="Center" />
-            <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" Style="{StaticResource EntryStyle}" />
-            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" Style="{StaticResource EntryStyle}" />
-            <Button Text="Login" Command="{Binding LoginCommand}" Style="{StaticResource ButtonStyle}" />
+            <Label Text="Login" FontSize="Large" HorizontalOptions="Center"
+                   Style="{StaticResource LabelStyle}" />
+            <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email"
+                   Style="{StaticResource EntryStyle}" />
+            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True"
+                   Style="{StaticResource EntryStyle}" />
+            <Button Text="Login" Command="{Binding LoginCommand}"
+                    Style="{StaticResource ButtonStyle}" />
+            <Button Text="Zarejestruj się" Command="{Binding RegisterCommand}"
+                    Style="{StaticResource ButtonStyle}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

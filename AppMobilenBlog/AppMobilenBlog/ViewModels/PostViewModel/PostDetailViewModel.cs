@@ -119,7 +119,7 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
 
             try
             {
-                var post = await DataStore.GetItemAsync(PostId); // Załaduj post
+                var post = await DataStore.GetItemAsync(PostId);
 
                 if (post == null)
                 {
@@ -127,16 +127,13 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                     return;
                 }
 
-                // Usuń tag z listy tagów
                 var tags = post.TagData.Split('#').Select(t => t.Trim()).ToList();
                 tags.Remove(tag);
 
                 post.TagData = string.Join("#", tags);
 
-                // Zapisz zmiany w bazie danych
                 await DataStore.UpdateItemAsync(post);
 
-                // Odśwież dane w ViewModelu
                 TagData = post.TagData;
                 Debug.WriteLine($"Tag {tag} removed successfully.");
 
@@ -162,7 +159,7 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
 
                     if (item.PublicationDate.HasValue)
                     {
-                        PublicationDate = item.PublicationDate.Value.DateTime; // Explicitly convert to DateTime
+                        PublicationDate = item.PublicationDate.Value.DateTime;
                     }
 
                     UserName = item.UserName;

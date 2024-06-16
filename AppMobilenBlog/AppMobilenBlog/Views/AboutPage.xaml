@@ -4,7 +4,7 @@
              x:Class="AppMobilenBlog.Views.AboutPage"
              xmlns:vm="clr-namespace:AppMobilenBlog.ViewModels"
              Title="{Binding Title}">
-    
+
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
@@ -19,9 +19,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        
 
         <!-- Header with Logo -->
         <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
@@ -46,14 +45,14 @@
                     <Label Text="• Personalizacja swojego profilu" FontSize="16" Style="{StaticResource LabelStyleContent}" />
                     <Label Text="• Przeglądanie kategorii i tagów" FontSize="16" Style="{StaticResource LabelStyleContent}" />
                 </StackLayout>
-
-                <!-- Call to Action Buttons -->
-                <StackLayout Orientation="Vertical" Padding="0,20,0,0">
-                    <Button Text="Zarejestruj się" Command="{Binding RegisterCommand}" Style="{StaticResource ButtonStyle}" />
-                    <Button Text="Zaloguj się" Command="{Binding LoginCommand}" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0"/>
-                </StackLayout>
             </StackLayout>
         </ScrollView>
-    </Grid>
 
+        <!-- Menu at the bottom -->
+        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="20,10" Spacing="10" BackgroundColor="{StaticResource Accent}">
+            <Button Text="Strona Główna" Command="{Binding NavigateHomeCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
+            <Button Text="Posty" Command="{Binding NavigatePostsCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
+            <Button Text="Statystyki Użytkowników" Command="{Binding NavigateUsersCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+    </Grid>
 </ContentPage>

@@ -4,30 +4,48 @@
              x:Class="AppMobilenBlog.Views.PostUpdatePage"
              Shell.PresentationMode="ModalAnimated"
              Title="{Binding Title}">
-    <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
-            <Label Text="Post ID:" FontSize="Medium" />
-            <Label Text="{Binding PostId, Mode=TwoWay}" FontSize="Medium"/>
+    <StackLayout Spacing="20" Padding="20">
+        <ScrollView>
+            <Grid ColumnSpacing="10" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <Label Text="Tytuł:" FontSize="Medium" />
-            <Editor Text="{Binding Title, Mode=TwoWay}" FontSize="Medium"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Label Text="Treść:" FontSize="Medium" />
-            <Editor Text="{Binding Content, Mode=TwoWay}" HeightRequest="150" FontSize="Medium"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="Post ID:" Style="{StaticResource LabelStyleHeader}" />
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding PostId, Mode=TwoWay}" Style="{StaticResource LabelStyleContent}" />
 
-            <Label Text="Data publikacji:" FontSize="Medium" />
-            <DatePicker Date="{Binding PublicationDate, Mode=TwoWay}" FontSize="Medium"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Tytuł:" Style="{StaticResource LabelStyleHeader}" />
+                <Editor Grid.Row="1" Grid.Column="1" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource EntryStyle}" HorizontalOptions="FillAndExpand" />
 
-            <Label Text="Kategorie:" FontSize="Medium" />
-            <Editor Text="{Binding CategoryData, Mode=TwoWay}" FontSize="Medium" Placeholder="Wprowadź kategorie oddzielone przecinkami"/>
+                <Label Grid.Row="2" Grid.Column="0" Text="Treść:" Style="{StaticResource LabelStyleHeader}" />
+                <Editor Grid.Row="2" Grid.Column="1" Text="{Binding Content, Mode=TwoWay}" HeightRequest="150" Style="{StaticResource EntryStyle}" HorizontalOptions="FillAndExpand" />
 
-            <Label Text="Tagi:" FontSize="Medium" />
-            <Editor Text="{Binding TagData, Mode=TwoWay}" FontSize="Medium" Placeholder="Wprowadź tagi z '#' oddzielone spacjami"/>
+                <Label Grid.Row="3" Grid.Column="0" Text="Data publikacji:" Style="{StaticResource LabelStyleHeader}" />
+                <DatePicker Grid.Row="3" Grid.Column="1" Date="{Binding PublicationDate, Mode=TwoWay}" HorizontalOptions="FillAndExpand" />
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Button Text="Anuluj" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"/>
-                <Button Text="Zapisz" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"/>
-            </StackLayout>
+                <Label Grid.Row="4" Grid.Column="0" Text="Kategorie:" Style="{StaticResource LabelStyleHeader}" />
+                <Editor Grid.Row="4" Grid.Column="1" Text="{Binding CategoryData, Mode=TwoWay}" Style="{StaticResource EntryStyle}" Placeholder="Wprowadź kategorie oddzielone przecinkami" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Tagi:" Style="{StaticResource LabelStyleHeader}" />
+                <Editor Grid.Row="5" Grid.Column="1" Text="{Binding TagData, Mode=TwoWay}" Style="{StaticResource EntryStyle}" Placeholder="Wprowadź tagi z '#' oddzielone spacjami" HorizontalOptions="FillAndExpand" />
+            </Grid>
+        </ScrollView>
+
+        <!-- Przyciski akcji na dole -->
+        <StackLayout Orientation="Horizontal" Spacing="15" HorizontalOptions="FillAndExpand">
+            <Button Text="Anuluj" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
+            <Button Text="Zapisz" Command="{Binding SaveCommand}" Style="{StaticResource PrimaryButtonStyle}" HorizontalOptions="FillAndExpand"/>
         </StackLayout>
-    </ContentPage.Content>
+    </StackLayout>
 </ContentPage>

@@ -45,6 +45,26 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="GreenLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Green" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="OrangeLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Orange" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+
+            <Style x:Key="RedLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+
             <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -64,10 +84,10 @@
     <FlyoutItem Title="Main Page" Icon="icon_about.png">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Posts" Icon="icon_feed.png">
+    <FlyoutItem Title="Posts Page" Icon="icon_feed.png">
         <ShellContent Route="PostsPage" ContentTemplate="{DataTemplate local:PostsPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Users" Icon="icon_feed.png">
+    <FlyoutItem Title="Users Stats" Icon="icon_feed.png">
         <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate localUser:UserPage}" />
     </FlyoutItem>
 

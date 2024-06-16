@@ -9,43 +9,35 @@
         <local:PostDetailViewModel />
     </ContentPage.BindingContext>
     <ScrollView>
-        <StackLayout Padding="20" Spacing="20">
+        <StackLayout>
             <Label Text="{Binding UserName}" FontSize="Small"/>
             <Label Text="{Binding Title}" Style="{StaticResource LabelStyleTitle}" />
             <Label Text="{Binding Content}" Style="{StaticResource LabelStyleContent}" />
             <Label Text="{Binding PublicationDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="6" />
 
-            <!-- Kategorie -->
             <Label Text="Kategorie:" Style="{StaticResource LabelStyleCategory}" />
-            <ListView ItemsSource="{Binding CategoryData, Converter={StaticResource StringToListConverter}, ConverterParameter=','}" HasUnevenRows="True">
-                <ListView.ItemTemplate>
+            <CollectionView HeightRequest="350" ItemsSource="{Binding CategoryData, Converter={StaticResource StringToListConverter}, ConverterParameter=','}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
-                                <Label Text="{Binding .}" VerticalOptions="Center" />
-                                <Button Text="Usuń" Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostDetailViewModel}}, Path=RemoveCategoryCommand}" CommandParameter="{Binding .}" VerticalOptions="Center" Style="{StaticResource ButtonStyle}" />
-                            </StackLayout>
-                        </ViewCell>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding .}" VerticalOptions="Center" />
+                            <Button Text="Usuń" Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostDetailViewModel}}, Path=RemoveCategoryCommand}" CommandParameter="{Binding .}" VerticalOptions="Center" Style="{StaticResource ButtonStyle}" />
+                        </StackLayout>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-            <!-- Tagi -->
             <Label Text="Tagi:" Style="{StaticResource LabelStyleTag}" />
-            <ListView ItemsSource="{Binding TagData, Converter={StaticResource StringToTagListConverter}}" HasUnevenRows="True">
-                <ListView.ItemTemplate>
+            <CollectionView HeightRequest="350" ItemsSource="{Binding TagData, Converter={StaticResource StringToTagListConverter}}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
-                                <Label Text="{Binding .}" VerticalOptions="Center" />
-                                <Button Text="Usuń" Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostDetailViewModel}}, Path=RemoveTagCommand}" CommandParameter="{Binding .}" VerticalOptions="Center" Style="{StaticResource ButtonStyle}" />
-                            </StackLayout>
-                        </ViewCell>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding .}" VerticalOptions="Center" />
+                            <Button Text="Usuń" Command="{Binding Source={RelativeSource AncestorType={x:Type local:PostDetailViewModel}}, Path=RemoveTagCommand}" CommandParameter="{Binding .}" VerticalOptions="Center" Style="{StaticResource ButtonStyle}" />
+                        </StackLayout>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <Button Text="Anuluj" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" />

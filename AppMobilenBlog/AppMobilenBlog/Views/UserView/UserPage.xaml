@@ -24,22 +24,22 @@
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Email: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
-                                <Label Text="{Binding Email}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding Email}" Style="{StaticResource GoldBoldLabelStyle}" FontSize="13" VerticalOptions="Center"/>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Registration Date: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
-                                <Label Text="{Binding RegistrationDate, StringFormat='{0:MM/dd/yyyy}'}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding RegistrationDate, StringFormat='{0:MM/dd/yyyy}'}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center" TextColor="LightGreen"/>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Role: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
-                                <Label Text="{Binding RoleName}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="{Binding RoleName}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center" TextColor="Red"/>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal" Spacing="10">
-                                <Label Text="Posts: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="Posts: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center" TextColor="Orange"/>
                                 <Label Text="{Binding PostCount}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
-                                <Label Text="Likes: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
-                                <Label Text="{Binding LikeCount}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
-                                <Label Text="Comments: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
+                                <Label Text="Likes: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center" TextColor="Orange"/>
+                                <Label Text="{Binding LikeCount}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"  />
+                                <Label Text="Comments: " Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center" TextColor="Orange"/>
                                 <Label Text="{Binding CommentCount}" Style="{StaticResource LabelStyle}" FontSize="13" VerticalOptions="Center"/>
                             </StackLayout>
                             <StackLayout.GestureRecognizers>

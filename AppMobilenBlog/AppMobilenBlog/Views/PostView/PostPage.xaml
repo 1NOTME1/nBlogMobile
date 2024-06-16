@@ -18,7 +18,7 @@
                 <DataTemplate>
                     <Frame Padding="10" Margin="5" BorderColor="{StaticResource PrimaryColor}" CornerRadius="10" HasShadow="True" BackgroundColor="{StaticResource BackgroundColor}">
                         <StackLayout Padding="10" x:DataType="model:PostForView">
-                            <Label Text="{Binding UserName}" FontSize="Small" Style="{StaticResource LabelStyle}"/>
+                            <Label Text="{Binding UserName}" FontSize="Small" Style="{StaticResource LabelStyle}" TextColor="Gold"/>
                             <Label Text="{Binding Title}" 
                                    LineBreakMode="WordWrap" 
                                    FontSize="16" 
@@ -30,31 +30,37 @@
                                    FontSize="13" 
                                    Style="{StaticResource LabelStyleContent}"/>
                             <StackLayout Orientation="Horizontal" Spacing="5">
-                                <Label Text="Categories:" FontAttributes="Bold" FontSize="8" VerticalOptions="Center" Style="{StaticResource LabelStyle}"/>
+                                <Label Text="Categories:" FontAttributes="Bold" FontSize="12" VerticalOptions="Center" Style="{StaticResource LabelStyle}" TextColor="Orange"/>
                                 <Label Text="{Binding CategoryData}" 
                                        LineBreakMode="NoWrap"
                                        FontSize="12" 
-                                       TextColor="{StaticResource PrimaryColor}"
+                                       TextColor="Orange"
                                        VerticalOptions="Center" 
                                        Style="{StaticResource LabelStyle}"/>
                             </StackLayout>
-                            <Label Text="Tags:" FontAttributes="Bold" FontSize="8" Style="{StaticResource LabelStyle}"/>
-                            <Label Text="{Binding TagData}" 
-                                   LineBreakMode="NoWrap"
-                                   FontSize="12" 
-                                   TextColor="{StaticResource SecondaryColor}" 
-                                   Style="{StaticResource LabelStyleTag}"/>
+                            <StackLayout Orientation="Horizontal" Spacing="5">
+                                <Label Text="Tags:" FontAttributes="Bold" FontSize="12" Style="{StaticResource LabelStyle}" VerticalOptions="Center" TextColor="#FF4081"/>
+                                <Label Text="{Binding TagData}" 
+                                       LineBreakMode="NoWrap"
+                                       FontSize="12" 
+                                       TextColor="{StaticResource SecondaryColor}" 
+                                       Style="{StaticResource LabelStyleTag}"
+                                       VerticalOptions="Center"/>
+                            </StackLayout>
                             <Label Text="{Binding PublicationDate, StringFormat='{0:dd/MM/yyyy}'}" 
                                    LineBreakMode="NoWrap"
                                    FontSize="12" 
                                    TextColor="Gray" 
                                    Style="{StaticResource LabelStyle}"/>
-                            <Label Text="Comments:" FontAttributes="Bold" FontSize="8" Style="{StaticResource LabelStyle}"/>
-                            <Label Text="{Binding CommentCount}" 
-                                   LineBreakMode="NoWrap"
-                                   FontSize="12" 
-                                   TextColor="Gray" 
-                                   Style="{StaticResource LabelStyle}"/>
+                            <StackLayout Orientation="Horizontal" Spacing="5">
+                                <Label Text="Comments:" FontAttributes="Bold" FontSize="12" VerticalOptions="Center" Style="{StaticResource LabelStyle}"/>
+                                <Label Text="{Binding CommentCount}" 
+                                       LineBreakMode="NoWrap"
+                                       FontSize="12" 
+                                       TextColor="Gray" 
+                                       Style="{StaticResource LabelStyle}"
+                                       VerticalOptions="Center"/>
+                            </StackLayout>
                             <StackLayout Orientation="Horizontal" Spacing="10">
                                 <Button Text="Like" 
                                         Command="{Binding Path=BindingContext.LikePostCommand, Source={x:Reference BrowsePostsPage}}" 

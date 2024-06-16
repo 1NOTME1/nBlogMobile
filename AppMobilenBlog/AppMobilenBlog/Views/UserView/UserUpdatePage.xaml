@@ -3,30 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMobilenBlog.Views.UserView.UserUpdatePage"
              Shell.PresentationMode="ModalAnimated"
-             Title="{Binding Title}">
-    <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
-            <Label Text="User ID:" FontSize="Medium" />
-            <Label Text="{Binding UserId, Mode=TwoWay}" FontSize="Medium"/>
+             Title="{Binding Title}"
+             Style="{StaticResource PageStyle}">
+    <StackLayout Spacing="20" Padding="20">
+        <ScrollView>
+            <Grid ColumnSpacing="10" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <Label Text="Username:" FontSize="Medium" />
-            <Editor Text="{Binding Username, Mode=TwoWay}" FontSize="Medium"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Label Text="Email:" FontSize="Medium" />
-            <Editor Text="{Binding Email, Mode=TwoWay}" FontSize="Medium"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="User ID:" Style="{StaticResource LabelStyleHeader}" />
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding UserId, Mode=TwoWay}" Style="{StaticResource LabelStyleContent}" />
 
-            <Label Text="Password Hash:" FontSize="Medium" />
-            <Editor Text="{Binding PasswordHash, Mode=TwoWay}" FontSize="Medium"/>
-            <Label Text="Registration Date:" FontSize="Medium" />
-            <DatePicker Date="{Binding RegistrationDate, Mode=TwoWay}" FontSize="Medium"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Username:" Style="{StaticResource LabelStyleHeader}" />
+                <Editor Grid.Row="1" Grid.Column="1" Text="{Binding Username, Mode=TwoWay}" Style="{StaticResource EntryStyle}" Placeholder="Wprowadź nazwę użytkownika" HorizontalOptions="FillAndExpand" />
 
-            <Label Text="Role ID:" FontSize="Medium" />
-            <Editor Text="{Binding RoleId, Mode=TwoWay}" FontSize="Medium"/>
+                <Label Grid.Row="2" Grid.Column="0" Text="Email:" Style="{StaticResource LabelStyleHeader}" />
+                <Editor Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}" Style="{StaticResource EntryStyle}" Placeholder="Wprowadź email" HorizontalOptions="FillAndExpand" />
 
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Anuluj" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Zapisz" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
-            </StackLayout>
+                <Label Grid.Row="3" Grid.Column="0" Text="Password Hash:" Style="{StaticResource LabelStyleHeader}" />
+                <Editor Grid.Row="3" Grid.Column="1" Text="{Binding PasswordHash, Mode=TwoWay}" Style="{StaticResource EntryStyle}" Placeholder="Wprowadź hasło" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="4" Grid.Column="0" Text="Registration Date:" Style="{StaticResource LabelStyleHeader}" />
+                <DatePicker Grid.Row="4" Grid.Column="1" Date="{Binding RegistrationDate, Mode=TwoWay}" Style="{StaticResource DatePickerStyle}" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Role ID:" Style="{StaticResource LabelStyleHeader}" />
+                <Editor Grid.Row="5" Grid.Column="1" Text="{Binding RoleId, Mode=TwoWay}" Style="{StaticResource EntryStyle}" Placeholder="Wprowadź ID roli" HorizontalOptions="FillAndExpand" />
+            </Grid>
+        </ScrollView>
+
+        <!-- Przyciski akcji na dole -->
+        <StackLayout Orientation="Horizontal" Spacing="15" HorizontalOptions="FillAndExpand">
+            <Button Text="Anuluj" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
+            <Button Text="Zapisz" Command="{Binding SaveCommand}" Style="{StaticResource PrimaryButtonStyle}" HorizontalOptions="FillAndExpand"/>
         </StackLayout>
-    </ContentPage.Content>
+    </StackLayout>
 </ContentPage>
