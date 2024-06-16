@@ -23,7 +23,7 @@ namespace AppMobilenBlog.ViewModels.CommentViewModel
         }
 
         public Command SubmitCommentCommand { get; }
-
+        #region Properties
         private string commentText;
         public string CommentText
         {
@@ -34,7 +34,7 @@ namespace AppMobilenBlog.ViewModels.CommentViewModel
         public int PostId { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
-
+        #endregion
         private async Task SubmitComment()
         {
             if (string.IsNullOrWhiteSpace(CommentText))

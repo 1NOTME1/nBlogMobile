@@ -7,6 +7,7 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
 {
     public class NewPostViewModel : ANewItemViewModel<PostForView>
     {
+        #region Fields
         private string title;
         private string content;
         private string tagData;
@@ -14,14 +15,16 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private string categoryData;
         private DateTime publicationDate;
         private int userId;
-
+        #endregion
+        #region Construktor
         public NewPostViewModel()
             : base("Add New Post")
         {
             PublicationDate = DateTime.Now;
-            UserId = Preferences.Get("UserId", 0); // Pobranie UserId z preferencji
+            UserId = Preferences.Get("UserId", 0);
         }
-
+        #endregion
+        #region Properties
         public int UserId
         {
             get => userId;
@@ -63,7 +66,8 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             get => publicationDate;
             set => SetProperty(ref publicationDate, value);
         }
-
+        #endregion
+        #region Methods
         public override bool ValidateSave() => !string.IsNullOrWhiteSpace(title)
             && !string.IsNullOrWhiteSpace(content)
             && !string.IsNullOrWhiteSpace(tagData)
@@ -84,5 +88,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 PublicationDate = publicationDate
             };
         }
+        #endregion
     }
 }

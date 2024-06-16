@@ -26,7 +26,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private string categoryData;
         private string tagData;
         #endregion
-
         #region Constructor
         public PostDetailViewModel()
             : this(DependencyService.Get<IDataStore<PostForView>>())
@@ -44,7 +43,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
 
         }
         #endregion
-
         #region Properties
         public int PostId
         {
@@ -88,12 +86,10 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             set => SetProperty(ref tagData, value);
         }
         #endregion
-
         #region Commands
         public ICommand RemoveCategoryCommand { get; private set; }
         public ICommand RemoveTagCommand { get; private set; }
         #endregion
-
         #region Methods
 
         private async Task RemoveCategory(string categoryName)
@@ -106,7 +102,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 OnPropertyChanged(nameof(CategoryData));
             }
         }
-
         private async Task RemoveTagAsync(string tag)
         {
             Debug.WriteLine($"RemoveTagAsync called with tag: {tag}");
@@ -144,9 +139,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 Debug.WriteLine($"Exception in RemoveTagAsync: {ex.Message}");
             }
         }
-
-
-
         public override async Task LoadItem(int id)
         {
             try
@@ -178,7 +170,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 Debug.WriteLine($"Failed to Load Post: {ex.Message}");
             }
         }
-
         protected override Task GoToUpdatePage()
             => Shell.Current.GoToAsync($"{nameof(PostUpdatePage)}?{nameof(PostUpdateViewModel.ItemId)}={ItemId}");
         #endregion

@@ -22,7 +22,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private int likeCount;
         private IDataStore<PostForView> DataStore;
         #endregion Fields
-
         #region Properties
         public int PostId
         {
@@ -70,14 +69,13 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             set => SetProperty(ref likeCount, value);
         }
         #endregion
-
         #region Constructor
         public PostUpdateViewModel(IDataStore<PostForView> dataStore) : base("Post Update")
         {
             DataStore = dataStore;
         }
         #endregion
-
+        #region Methods
         public override async Task LoadItem(int id)
         {
             try
@@ -109,11 +107,7 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             }
         }
 
-        public override bool ValidateSave()
-        {
-            return PostId > 0 && !string.IsNullOrWhiteSpace(Title) && !string.IsNullOrWhiteSpace(Content);
-        }
-
+        public override bool ValidateSave() => PostId > 0 && !string.IsNullOrWhiteSpace(Title) && !string.IsNullOrWhiteSpace(Content);
         public override PostForView SetItem()
         {
             return new PostForView
@@ -129,7 +123,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 LikeCount = this.LikeCount
             };
         }
-
         public async Task<bool> SaveItemAsync()
         {
             try
@@ -153,5 +146,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 return false;
             }
         }
+        #endregion
     }
 }

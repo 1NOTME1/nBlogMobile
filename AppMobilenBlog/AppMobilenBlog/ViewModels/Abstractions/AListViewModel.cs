@@ -67,10 +67,7 @@ namespace AppMobilenBlog.ViewModels.Abstractions
             }
         }
         public abstract Task GoToAddPage();
-        public async void OnAddItem(object obj)
-        {
-            await GoToAddPage();
-        }
+        public async void OnAddItem(object obj) => await GoToAddPage();
         public abstract Task GoToDetailsPage(T item);
 
         async void OnItemSelected(T item)

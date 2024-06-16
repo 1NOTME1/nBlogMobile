@@ -21,7 +21,6 @@
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
-
             <Style Class="FlyoutItemLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="White"></Setter>
             </Style>
@@ -44,27 +43,21 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-
             <Style x:Key="GreenLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="Green" />
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="VerticalOptions" Value="Center" />
             </Style>
-
             <Style x:Key="OrangeLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="Orange" />
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="VerticalOptions" Value="Center" />
             </Style>
-
-
             <Style x:Key="RedLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="Red" />
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="VerticalOptions" Value="Center" />
             </Style>
-
-
             <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -90,10 +83,9 @@
     <FlyoutItem Title="Users Stats" Icon="icon_feed.png">
         <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate localUser:UserPage}" />
     </FlyoutItem>
-
     <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
     </MenuItem>
-
+    
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>

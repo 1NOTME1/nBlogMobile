@@ -6,29 +6,32 @@ namespace AppMobilenBlog.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
+        #region Fildes
         private string email;
         private string password;
         public Command LoginCommand { get; }
         private readonly ILoginService _loginService;
-
+        #endregion
+        #region Constructor
         public LoginViewModel()
         {
             _loginService = DependencyService.Get<ILoginService>();
             LoginCommand = new Command(OnLoginClicked);
         }
-
+        #endregion
+        #region Properties
         public string Email
         {
             get => email;
             set => SetProperty(ref email, value);
         }
-
         public string Password
         {
             get => password;
             set => SetProperty(ref password, value);
         }
-
+        #endregion
+        #region Methods
         private async void OnLoginClicked()
         {
             Debug.WriteLine("Login button clicked");
@@ -73,6 +76,8 @@ namespace AppMobilenBlog.ViewModels
                 Debug.WriteLine("Displaying login failed message");
                 await Application.Current.MainPage.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
             }
+            
         }
+        #endregion
     }
 }

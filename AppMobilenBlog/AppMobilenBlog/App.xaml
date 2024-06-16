@@ -116,10 +116,8 @@
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
             </Style>
 
-            <!-- Register the converters -->
             <local:StringToListConverter x:Key="StringToListConverter" />
             <local:StringToTagListConverter x:Key="StringToTagListConverter" />
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

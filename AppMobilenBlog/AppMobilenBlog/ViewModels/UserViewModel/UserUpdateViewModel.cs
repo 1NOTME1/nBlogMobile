@@ -16,6 +16,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         private DateTime? registrationDate;
         private int roleId;
         private string passwordHash;
+        private string password;
         #endregion Fields
         #region Properties
         public int UserId
@@ -48,8 +49,6 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             get => passwordHash;
             set => SetProperty(ref passwordHash, value);
         }
-
-        private string password;
         public string Password
         {
             get => password;
@@ -62,7 +61,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         {
         }
         #endregion
-
+        #region Methods
         public override async Task LoadItem(int id)
         {
             try
@@ -89,9 +88,6 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             }
         }
 
-
-
-
         public override bool ValidateSave()
             => UserId > 0 && !string.IsNullOrWhiteSpace(Username);
 
@@ -105,11 +101,10 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 RegistrationDate = this.RegistrationDate,
                 RoleId = this.RoleId,
                 Password = this.PasswordHash
-                // Nie przekazuj PasswordHash
 
             };
             return userForView;
         }
-
+        #endregion
     }
 }

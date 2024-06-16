@@ -5,6 +5,7 @@ namespace AppMobilenBlog.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
+        #region Constructor
         public AboutViewModel()
         {
             Title = "About";
@@ -13,11 +14,11 @@ namespace AppMobilenBlog.ViewModels
             NavigatePostsCommand = new Command(OnNavigatePosts);
             NavigateUsersCommand = new Command(OnNavigateUsers);
         }
-
+        #endregion
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigatePostsCommand { get; }
         public ICommand NavigateUsersCommand { get; }
-
+        #region Methods
         private async void OnNavigateHome()
         {
             await Shell.Current.GoToAsync("//AboutPage");
@@ -32,5 +33,6 @@ namespace AppMobilenBlog.ViewModels
         {
             await Shell.Current.GoToAsync("//UsersPage");
         }
+        #endregion
     }
 }

@@ -40,7 +40,6 @@ namespace AppMobilenBlog.Services
             {
                 Debug.WriteLine($"Error adding comment: {ex.Message}");
                 Debug.WriteLine($"HTTP Status: {ex.StatusCode}");
-                // Logowanie treści odpowiedzi
                 Debug.WriteLine($"Response: {ex.Response}");
             }
             catch (Exception ex)
@@ -56,27 +55,14 @@ namespace AppMobilenBlog.Services
             return comments.Count(c => c.PostId == postId);
         }
 
-        public override async Task<bool> UpdateItemInService(CommentForView item)
-        {
-            return await nBlogService.CommentPUTAsync(item.CommentId, item).HandleRequest();
-        }
+        public override async Task<bool> UpdateItemInService(CommentForView item) => await nBlogService.CommentPUTAsync(item.CommentId, item).HandleRequest();
 
-        public override async Task<bool> DeleteItemFromService(CommentForView item)
-        {
-            return await nBlogService.CommentDELETEAsync(item.CommentId).HandleRequest();
-        }
+        public override async Task<bool> DeleteItemFromService(CommentForView item) => await nBlogService.CommentDELETEAsync(item.CommentId).HandleRequest();
 
-        public override CommentForView Find(CommentForView item)
-        {
-            return items.FirstOrDefault(x => x.CommentId == item.CommentId);
-        }
+        public override CommentForView Find(CommentForView item) => items.FirstOrDefault(x => x.CommentId == item.CommentId);
 
-        public override CommentForView Find(int id)
-        {
-            return items.FirstOrDefault(x => x.CommentId == id);
-        }
+        public override CommentForView Find(int id) => items.FirstOrDefault(x => x.CommentId == id);
 
-        // Implementacja metody AddItemAsync
         public Task<bool> AddItemAsync(CommentForView item) => AddItemToService(item);
     }
 }

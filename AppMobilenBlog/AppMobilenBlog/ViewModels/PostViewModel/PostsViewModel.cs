@@ -17,6 +17,7 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
         private readonly CommentDataStore _commentDataStore;
         private readonly ILikeService _likeService;
 
+        #region Constructor
         public PostsViewModel()
     : base("Browse Posts")
         {
@@ -34,8 +35,8 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
             LikePostCommand = new Command<PostForView>(async (post) => await ExecuteLikePostCommand(post));
             Task.Run(() => LoadItemsAsync());
         }
-
-
+        #endregion
+        #region Methods
         public Command<PostForView> AddCommentCommand { get; private set; }
         public Command<PostForView> LikePostCommand { get; private set; }
 
@@ -46,7 +47,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 await Shell.Current.GoToAsync($"{nameof(NewCommentPage)}?postId={post.PostId}");
             }
         }
-
         private async Task ExecuteLikePostCommand(PostForView post)
         {
             if (post == null || IsBusy) return;
@@ -84,12 +84,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
                 IsBusy = false;
             }
         }
-
-
-
-
-
-
         public async Task LoadItemsAsync()
         {
             IsBusy = true;
@@ -123,5 +117,6 @@ namespace AppMobilenBlog.ViewModels.PostViewModel
 
         public override Task GoToDetailsPage(PostForView post)
             => Shell.Current.GoToAsync($"{nameof(PostDetailPage)}?{nameof(PostDetailViewModel.ItemId)}={post.PostId}");
+        #endregion
     }
 }

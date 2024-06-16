@@ -16,8 +16,9 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         private DateTime registrationDate;
         private int roleId;
         #endregion Fields
+        #region Constructor
         public NewUserViewModel() : base("Add New User") { }
-
+        #endregion
         #region Properties
         public int UserId
         {
@@ -52,7 +53,7 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
             set => SetProperty(ref roleId, value);
         }
         #endregion
-
+        #region Methods
         public override bool ValidateSave() => userId > 0 
             && !string.IsNullOrWhiteSpace(username)
             && !string.IsNullOrWhiteSpace(email)
@@ -75,5 +76,6 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 
             };
         }
+        #endregion
     }
 }

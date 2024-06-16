@@ -39,19 +39,19 @@ namespace AppMobilenBlog.ViewModels.Abstractions
         public abstract Task LoadItem(int id);
         private async void OnSave()
         {
-            Debug.WriteLine("OnSave method called."); // Dodaj debugowanie
+            Debug.WriteLine("OnSave method called");
 
             try
             {
                 if (ValidateSave())
                 {
-                    Debug.WriteLine("Saving user data..."); // Dodaj debugowanie
+                    Debug.WriteLine("Saving user data");
                     await DataStore.UpdateItemAsync(SetItem());
                     await Shell.Current.GoToAsync("..");
                 }
                 else
                 {
-                    Debug.WriteLine("Validation failed."); // Dodaj debugowanie
+                    Debug.WriteLine("Validation failed");
                 }
             }
             catch (Exception ex)
@@ -59,7 +59,6 @@ namespace AppMobilenBlog.ViewModels.Abstractions
                 Debug.WriteLine($"Error during save operation: {ex.Message}");
             }
         }
-
 
     }
 }

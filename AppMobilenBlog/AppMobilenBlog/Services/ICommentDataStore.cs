@@ -7,6 +7,5 @@ namespace AppMobilenBlog.Services
     {
         Task<bool> AddItemAsync(CommentForView item);
         Task<int> GetCommentCountForPostAsync(int postId);
-        // Dodaj inne metody, które są potrzebne
     }
 }

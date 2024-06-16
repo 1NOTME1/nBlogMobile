@@ -19,6 +19,5 @@ namespace AppMobilenBlog.Helpers
                 return false;
             }
         }
-
     }
 }

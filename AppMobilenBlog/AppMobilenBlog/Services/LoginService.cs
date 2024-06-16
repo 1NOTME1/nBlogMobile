@@ -35,10 +35,8 @@ namespace AppMobilenBlog.Services
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(responseContent);
 
-                    // Zapisz UserId i UserName w preferencjach
                     Preferences.Set("CurrentUserId", loginResponse.UserId);
-                    Preferences.Set("UserName", loginResponse.UserName); // Dodanie zapisu UserName
-
+                    Preferences.Set("UserName", loginResponse.UserName);
                     Debug.WriteLine("Login successful");
                     return true;
                 }

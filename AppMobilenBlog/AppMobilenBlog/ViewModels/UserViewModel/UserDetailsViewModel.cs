@@ -23,12 +23,10 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
         private int commentCount;
         private int likeCount;
         #endregion
-
         #region Constructor
         public UserDetailsViewModel()
             : base("User Details") { }
         #endregion
-
         #region Properties
         public int UserId
         {
@@ -38,61 +36,53 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                 userId = value;
             }
         }
-
         public string Username
         {
             get => username;
             set => SetProperty(ref username, value);
         }
-
         public string Email
         {
             get => email;
             set => SetProperty(ref email, value);
         }
-
         public string PasswordHash
         {
             get => passwordHash;
             set => SetProperty(ref passwordHash, value);
         }
-
         public DateTime? RegistrationDate
         {
             get => registrationDate;
             set => SetProperty(ref registrationDate, value);
         }
-
         public int RoleId
         {
             get => roleId;
             set => SetProperty(ref roleId, value);
         }
-
         public string RoleName
         {
             get => roleName;
             set => SetProperty(ref roleName, value);
         }
-
         public int PostCount
         {
             get => postCount;
             set => SetProperty(ref postCount, value);
         }
-
         public int CommentCount
         {
             get => commentCount;
             set => SetProperty(ref commentCount, value);
         }
-
         public int LikeCount
         {
             get => likeCount;
             set => SetProperty(ref likeCount, value);
         }
-
+        #endregion
+        #region Methods
         protected override Task GoToUpdatePage()
             => Shell.Current.GoToAsync($"{nameof(UserUpdatePage)}?{nameof(UserUpdateViewModel.ItemId)}={ItemId}");
 

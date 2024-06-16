@@ -50,7 +50,7 @@ namespace AppMobilenBlog.ViewModels.CommentViewModel
                 return;
             }
 
-            var userId = Preferences.Get("UserId", 0); // Pobierz UserId z preferencji
+            var userId = Preferences.Get("UserId", 0);
 
             var newComment = new CommentForView
             {
@@ -65,9 +65,6 @@ namespace AppMobilenBlog.ViewModels.CommentViewModel
                 // Przeniesienie na stronę wyświetlającą posty
                 await Shell.Current.GoToAsync(".."); // Zakładając, że strona postów jest poziom wyżej
         }
-
-
-
         private async Task DeleteComment(int commentId)
         {
             if (await commentDataStore.DeleteItemAsync(commentId))
