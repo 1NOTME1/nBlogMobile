@@ -5,7 +5,7 @@ public class CommentForView
     public int CommentId { get; set; }
     public int? PostId { get; set; }
     public int? UserId { get; set; }
-    public string Content { get; set; } // Pole wymagane
+    public string Content { get; set; }
     public DateTime? CommentDate { get; set; }
     public string UserName { get; set; }
 
@@ -18,7 +18,7 @@ public class CommentForView
             UserId = source.UserId,
             Content = source.Content,
             CommentDate = source.CommentDate,
-            UserName = source.User?.Username ?? "DefaultUserName" // Upewnij się, że to pole jest poprawnie ustawione
+            UserName = source.User?.Username ?? "DefaultUserName"
         };
     }
 

@@ -49,9 +49,9 @@ namespace RestAPInBlog.Controllers
             }
 
             var post = await _context.Posts
-                .Include(p => p.User) // Include User
-                .Include(p => p.Categories) // Include Categories
-                .Include(p => p.Tags) // Include Tags
+                .Include(p => p.User)
+                .Include(p => p.Categories)
+                .Include(p => p.Tags)
                 .FirstOrDefaultAsync(p => p.PostId == id);
 
             if (post == null)
@@ -81,7 +81,6 @@ namespace RestAPInBlog.Controllers
             existingPost.Content = postView.Content;
             existingPost.PublicationDate = postView.PublicationDate ?? existingPost.PublicationDate;
 
-            // Update Categories
             existingPost.Categories.Clear();
             if (!string.IsNullOrWhiteSpace(postView.CategoryData))
             {
@@ -99,7 +98,6 @@ namespace RestAPInBlog.Controllers
                 }
             }
 
-            // Update Tags
             existingPost.Tags.Clear();
             if (!string.IsNullOrWhiteSpace(postView.TagData))
             {
@@ -222,13 +220,11 @@ namespace RestAPInBlog.Controllers
                 return NotFound();
             }
 
-            // Usunięcie powiązań z kategoriami
             foreach (var category in post.Categories.ToList())
             {
                 post.Categories.Remove(category);
             }
 
-            // Usunięcie powiązań z tagami
             foreach (var tag in post.Tags.ToList())
             {
                 post.Tags.Remove(tag);

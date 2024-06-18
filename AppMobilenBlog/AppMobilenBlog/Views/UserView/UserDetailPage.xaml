@@ -6,7 +6,6 @@
              Style="{StaticResource PageStyle}">
 
     <StackLayout Spacing="20" Padding="20">
-        <!-- ScrollView obejmujący Grid z danymi użytkownika -->
         <ScrollView>
             <Grid ColumnSpacing="10" RowSpacing="10">
                 <Grid.RowDefinitions>
@@ -26,7 +25,6 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Dane użytkownika -->
                 <Label Grid.Row="0" Grid.Column="0" Text="Username:" Style="{StaticResource LabelStyleHeader}" TextColor="Gold"/>
                 <Label Grid.Row="0" Grid.Column="1" Text="{Binding Username}" Style="{StaticResource LabelStyleContent}" TextColor="Gold"/>
 
@@ -50,7 +48,6 @@
             </Grid>
         </ScrollView>
 
-        <!-- Przyciski akcji na dole -->
         <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand">
             <Button Text="Like" Command="{Binding LikeCommand}" Style="{StaticResource ButtonStyle}" />
             <Label Text="{Binding LikeCount}" Style="{StaticResource LabelStyleContent}" VerticalOptions="Center"/>

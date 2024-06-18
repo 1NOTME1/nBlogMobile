@@ -28,7 +28,7 @@ namespace RestAPInBlog.Controllers
                 return NotFound();
             }
             var users = await _context.Users
-                .Include(u => u.Role) // Dołączamy dane z tabeli roles
+                .Include(u => u.Role)
                 .Select(u => new UserForView
                 {
                     UserId = u.UserId,
@@ -36,7 +36,7 @@ namespace RestAPInBlog.Controllers
                     Email = u.Email,
                     RegistrationDate = u.RegistrationDate,
                     RoleId = u.RoleId,
-                    RoleName = u.Role.Name, // Pobieramy nazwę roli
+                    RoleName = u.Role.Name,
                     PostCount = u.Posts.Count(),
                     CommentCount = u.Comments.Count(),
                     LikeCount = u.Likes.Count(),
@@ -57,10 +57,10 @@ namespace RestAPInBlog.Controllers
                 return NotFound();
             }
             var user = await _context.Users
-                .Include(u => u.Role) // Dołączamy dane z tabeli roles
-                .Include(u => u.Posts) // Dołączamy posty
-                .Include(u => u.Comments) // Dołączamy komentarze
-                .Include(u => u.Likes) // Dołączamy polubienia
+                .Include(u => u.Role) 
+                .Include(u => u.Posts)
+                .Include(u => u.Comments) 
+                .Include(u => u.Likes)
                 .Where(u => u.UserId == id)
                 .Select(u => new UserForView
                 {
@@ -69,10 +69,10 @@ namespace RestAPInBlog.Controllers
                     Email = u.Email,
                     RegistrationDate = u.RegistrationDate,
                     RoleId = u.RoleId,
-                    RoleName = u.Role.Name, // Pobieramy nazwę roli
-                    PostCount = u.Posts.Count(), // Liczba postów
-                    CommentCount = u.Comments.Count(), // Liczba komentarzy
-                    LikeCount = u.Likes.Count(), // Liczba polubień
+                    RoleName = u.Role.Name,
+                    PostCount = u.Posts.Count(),
+                    CommentCount = u.Comments.Count(),
+                    LikeCount = u.Likes.Count(),
                     Password = u.PasswordHash
                 })
                 .FirstOrDefaultAsync();

@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestAPInBlog.Model;
 using RestAPInBlog.Model.Context;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestAPInBlog.Controllers
 {
@@ -91,7 +88,6 @@ namespace RestAPInBlog.Controllers
             }
             var like = new Like
             {
-                // Przypisz wartości z likeView do nowego obiektu Like, upewnij się, że wszystkie wymagane pola są ustawione
                 PostId = likeView.PostId,
                 UserId = likeView.UserId
             };
@@ -99,7 +95,6 @@ namespace RestAPInBlog.Controllers
             _context.Likes.Add(like);
             await _context.SaveChangesAsync();
 
-            // Ustaw ID po zapisaniu w DB
             likeView.LikeId = like.LikeId;
 
             return CreatedAtAction("GetLike", new { id = like.LikeId }, likeView);

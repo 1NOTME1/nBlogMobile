@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using AppMobilenBlog.ServiceReference;
-using AppMobilenBlog.ViewModels.Abstractions;
 using AppMobilenBlog.Services;
 using Xamarin.Essentials;
 

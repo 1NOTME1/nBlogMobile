@@ -1,7 +1,7 @@
 ﻿using AppMobilenBlog.ServiceReference;
 using AppMobilenBlog.ViewModels.Abstractions;
 using System;
-using Xamarin.Essentials; // Dodaj referencję do Xamarin.Essentials
+using Xamarin.Essentials;
 
 namespace AppMobilenBlog.ViewModels.PostViewModel
 {

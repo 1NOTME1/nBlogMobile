@@ -42,7 +42,6 @@
             </Grid>
         </ScrollView>
 
-        <!-- Przyciski akcji na dole -->
         <StackLayout Orientation="Horizontal" Spacing="15" HorizontalOptions="FillAndExpand">
             <Button Text="Anuluj" Command="{Binding CancelCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
             <Button Text="Zapisz" Command="{Binding SaveCommand}" Style="{StaticResource PrimaryButtonStyle}" HorizontalOptions="FillAndExpand"/>

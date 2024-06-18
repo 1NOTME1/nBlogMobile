@@ -22,7 +22,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Header with Logo -->
         <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                 <ContentView Padding="20,40,20,40" VerticalOptions="FillAndExpand">
@@ -31,13 +30,11 @@
             </StackLayout>
         </StackLayout>
 
-        <!-- Main Content -->
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="20">
                 <Label Text="Witamy w nBlog!" FontSize="Title" Style="{StaticResource LabelStyleTitle}" HorizontalOptions="Center"/>
                 <Label Text="Twoje nowe miejsce na tworzenie i dzielenie się postami. Zarejestruj się, aby zacząć swoją przygodę." FontSize="16" Style="{StaticResource LabelStyleContent}" HorizontalOptions="Center"/>
 
-                <!-- Key Features -->
                 <Label Text="Kluczowe Funkcje:" FontSize="Subtitle" Style="{StaticResource LabelStyleHeader}" />
                 <StackLayout Padding="0,10,0,0">
                     <Label Text="• Tworzenie i publikowanie postów" FontSize="16" Style="{StaticResource LabelStyleContent}" />
@@ -48,7 +45,6 @@
             </StackLayout>
         </ScrollView>
 
-        <!-- Menu at the bottom -->
         <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="20,10" Spacing="10" BackgroundColor="{StaticResource Accent}">
             <Button Text="Strona Główna" Command="{Binding NavigateHomeCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
             <Button Text="Posty" Command="{Binding NavigatePostsCommand}" Style="{StaticResource ButtonStyle}" HorizontalOptions="FillAndExpand"/>
