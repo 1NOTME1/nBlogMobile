@@ -140,7 +140,6 @@ namespace RestAPInBlog.Controllers
                 return BadRequest("Password cannot be empty.");
             }
 
-            // Przykładowe hashowanie hasła przed zapisem
             var hashedPassword = HashPassword(userView.Password);
 
             var user = new User

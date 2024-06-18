@@ -157,7 +157,7 @@ namespace RestAPInBlog.Controllers
                 PublicationDate = postView.PublicationDate ?? DateTime.UtcNow
             };
 
-            // Handle Categories
+            // Zarzadza kateogria
             if (!string.IsNullOrWhiteSpace(postView.CategoryData))
             {
                 var categoryNames = postView.CategoryData.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim());
@@ -174,7 +174,7 @@ namespace RestAPInBlog.Controllers
                 }
             }
 
-            // Handle Tags with #
+            // Zarzadza tagami
             if (!string.IsNullOrWhiteSpace(postView.TagData))
             {
                 var tagNames = postView.TagData.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)

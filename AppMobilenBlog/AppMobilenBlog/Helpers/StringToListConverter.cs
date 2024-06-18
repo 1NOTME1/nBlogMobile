@@ -54,18 +54,6 @@ namespace AppMobilenBlog.Helpers
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     public class StringToTagListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -75,7 +63,6 @@ namespace AppMobilenBlog.Helpers
 
             var stringValue = value.ToString();
 
-            // Split by '#' and remove empty entries
             return stringValue.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries).Select(tag => "#" + tag.Trim()).ToList();
         }
 
@@ -86,7 +73,6 @@ namespace AppMobilenBlog.Helpers
 
             var list = value as List<string>;
 
-            // Join list items with '#'
             return string.Join(" ", list.Select(tag => tag.Trim()));
         }
     }

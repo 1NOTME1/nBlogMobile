@@ -96,10 +96,9 @@ namespace AppMobilenBlog.ViewModels.UserViewModel
                     this.CopyProperties(item);
                     UserId = id;
 
-                    // Handle nullable DateTimeOffset RegistrationDate
                     if (item.RegistrationDate.HasValue)
                     {
-                        RegistrationDate = item.RegistrationDate.Value.DateTime; // Explicitly convert to DateTime
+                        RegistrationDate = item.RegistrationDate.Value.DateTime;
                     }
 
                     Debug.WriteLine($"Loaded user with date: {RegistrationDate}");

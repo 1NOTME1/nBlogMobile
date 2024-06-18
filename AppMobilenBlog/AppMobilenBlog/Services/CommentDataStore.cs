@@ -32,7 +32,7 @@ namespace AppMobilenBlog.Services
                 if (response.CommentId > 0)
                 {
                     item.CommentId = response.CommentId;
-                    items.Add(item); // Dodaj element do lokalnej listy
+                    items.Add(item);
                     return true;
                 }
             }
